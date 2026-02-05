@@ -7,6 +7,7 @@ alwaysApply: true
 # Naming & Layout Conventions
 
 ## Folder layout (Next.js App Router)
+
 - `app/`: routing, layouts, route handlers
 - `components/<area>/...`: reusable UI
 - `hooks/<area>/useXxx.ts`: one hook per file
@@ -16,6 +17,7 @@ alwaysApply: true
 - `stores/<storeName>.ts`: Zustand (or similar) stores, when used
 
 ## File naming
+
 - Components: PascalCase filenames, folder-namespaced when complex:
   - `components/orders/OrderCard/OrderCard.tsx`
   - `components/orders/OrderCard/Header.tsx`
@@ -24,9 +26,11 @@ alwaysApply: true
 - Types: PascalCase, match the exported symbol name.
 
 ## Exports
+
 - Next.js route components (`app/**/page.tsx`, `layout.tsx`): **default export** (required by conventions).
 - Reusable components/hooks/utils/services/types: **single export per file**.
 
 ## Imports
+
 - No barrel/index files.
 - Prefer relative imports within a domain folder; use aliases only when they reduce churn.

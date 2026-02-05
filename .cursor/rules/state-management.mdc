@@ -19,7 +19,7 @@ Apply when the project uses Zustand (or a similar store) for shared UI state.
 
 ```tsx
 // BAD: Prop drilling
-<Parent onOpenModal={setIsOpen}>
+;<Parent onOpenModal={setIsOpen}>
   <Child onOpenModal={onOpenModal} />
 </Parent>
 

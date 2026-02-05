@@ -7,9 +7,11 @@ alwaysApply: true
 # Boundaries & Placement (agent-optimized)
 
 ## Goal
+
 Make it obvious where new code belongs so agents can create **many small files** without guessing.
 
 ## Decision Tree (Next.js App Router layout)
+
 If you are writing...
 
 - **A route or page** -> `app/**` (route components, layouts, route handlers)
@@ -20,12 +22,14 @@ If you are writing...
 - **A shared shape** -> `types/<area>/Xxx.ts`
 
 ## Hard Rules
+
 - **One exported symbol per file** (component / hook / function / type).
 - **No inline types** outside `types/`.
 - **No helpers inside components/hooks**; helpers go to `utils/`.
 - **Route handlers must be thin**: validate input, call a `services/` function, return a response.
 
 ## References
+
 - Next.js rules: `.cursor/rules/nextjs.mdc`
 - Route handlers: `.cursor/rules/route-handlers.mdc`
 - API response shapes: `.cursor/rules/api-response-shapes.mdc`

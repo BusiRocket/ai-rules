@@ -1,0 +1,31 @@
+---
+description: Project guidelines (strict one-thing-per-file, many small files)
+globs: *
+alwaysApply: true
+---
+
+# Project Guidelines
+
+## Core Goal
+Many small, focused files for maximum agent context efficiency.
+
+## Strict File Discipline
+- One exported component per `.tsx`.
+- One exported hook per `hooks/**/useXxx.ts`.
+- One exported function per `utils/**` and `services/**`.
+- One exported type per `types/**`.
+- No inline types outside `types/`.
+- No helpers inside components/hooks.
+- No index/barrel files.
+
+## App Router Defaults (Next.js)
+- Server Components by default.
+- Add `'use client'` only when needed.
+- Thin route handlers: `app/api/**/route.ts` -> call `services/`.
+
+## Quality Gate
+- Run the project's check script after meaningful changes (e.g. `yarn check:all`, `npm run check`).
+
+## References
+- Naming/layout: `.cursor/rules/naming-and-layout.mdc`
+- Boundaries: `.cursor/rules/boundaries.mdc`

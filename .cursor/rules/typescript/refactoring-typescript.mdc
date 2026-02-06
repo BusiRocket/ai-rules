@@ -13,11 +13,17 @@ alwaysApply: true
 - Move all types to `types/` (one type per file).
 - Move all helpers to `utils/` (one function per file).
 
+## File Size
+
+- Prefer 30–60 lines per file; never exceed ~100 lines without a strong reason.
+
 ## Decision Rules
 
 - If a file contains multiple responsibilities, split immediately.
 - If a hook/component contains helpers, extract them.
 - If a file declares types inline, move them to `types/`.
+- Limit logic in TSX to presentational concerns; move complex logic to hooks or `utils/`.
+- Pass full props into components; avoid computing derived data during prop passing; keep logic inside the component or its hooks.
 
 ## Never Use Index Files
 

@@ -29,4 +29,8 @@ alwaysApply: true
 ## Side Effects
 
 - Fetch/subscribe in `useEffect` with cleanup.
-- Avoid implicit dependencies; keep dependency arrays correct.
+- Avoid implicit dependencies; keep dependency arrays correct and as small as possible.
+
+## Organization
+
+- Group related hooks in subdirectories under `hooks/<area>/` when it improves discoverability.

@@ -17,6 +17,8 @@ Optimize for agent context by keeping **many small, focused files** and explicit
 - Avoid adding new dependencies unless explicitly approved.
 - Keep changes reversible; avoid touching unrelated files.
 - Use subagents to process multiple files in parallel when the task involves several independent edits.
+- Plan before executing: create a short plan before modifying code; ask if scope is unclear.
+- After meaningful changes: briefly reflect on maintainability and scalability; suggest improvements if needed.
 
 ## Code Style
 
@@ -34,6 +36,7 @@ Optimize for agent context by keeping **many small, focused files** and explicit
 
 - Implement proper error handling for network requests and responses; surface user-friendly errors when possible.
 - Consider API versioning and CORS when designing or integrating with backends.
+- For external backends: consider retries for transient failures and appropriate serialization for complex payloads.
 
 ## Quality Gate
 

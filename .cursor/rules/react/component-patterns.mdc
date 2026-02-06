@@ -35,3 +35,22 @@ For complex components with children:
 - `components/<area>/Parent/Footer.tsx`
 
 Avoid repeating the parent name in child filenames.
+
+## Performance
+
+- Memoize expensive computations with `useMemo`.
+- Use `useCallback` for handlers passed to children to avoid unnecessary re-renders.
+- Consider `React.memo` for purely presentational components.
+
+## Accessibility
+
+- Use semantic HTML where appropriate.
+- Add ARIA attributes when needed.
+- Support keyboard navigation where applicable.
+- Maintain sufficient color contrast.
+
+## Testing
+
+- Don't write tests if not requested.
+- Prefer tests next to or under the component (e.g. `__tests__` or colocated test files).
+- Use React Testing Library for component tests; cover behaviour and rendering.

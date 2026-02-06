@@ -37,8 +37,8 @@ A reusable set of [Cursor rules](https://docs.cursor.com/context/rules-for-ai) o
 
    ```bash
    cd /path/to/your/project
-   yarn add -D prettier   # or npm/pnpm
-   yarn prettier --write ".cursor/rules/**/*.mdc"
+   pnpm add -D prettier   # or npm/yarn
+   pnpm exec prettier --write ".cursor/rules/**/*.mdc"
    ```
 
 3. **Use umbrella rules in Cursor** when you want one rule that pulls in several:
@@ -87,8 +87,8 @@ When working inside this repository:
 
 | Script              | Description                           |
 | ------------------- | ------------------------------------- |
-| `yarn format`       | Format all `.mdc` rules with Prettier |
-| `yarn format:check` | Check that rules are formatted (CI)   |
+| `pnpm format`       | Format all `.mdc` rules with Prettier |
+| `pnpm format:check` | Check that rules are formatted (CI)   |
 
 ---
 

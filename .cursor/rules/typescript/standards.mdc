@@ -53,4 +53,4 @@ Some Next.js files require additional exports by convention. Allowed exceptions:
 
 ## Validation
 
-Run the project's check script after meaningful changes (e.g. `yarn check:all`, `npm run check`).
+Run the project's check script after meaningful changes (e.g. `pnpm run check`, `npm run check`).

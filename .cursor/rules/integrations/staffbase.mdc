@@ -24,7 +24,7 @@ Use this rule when working on projects that integrate with **Staffbase** (widget
 
 - Vite library build → output in `dist/` (see `vite.config.ts`).
 - Use `.env`, `.env.staging`, `.env.prod`, `.env.partner` (or equivalent) per environment; align with `package.json` scripts.
-- Preferred checks: `yarn type-check`, `yarn format`, `yarn lint` / `yarn lint:fix`.
+- Preferred checks: `pnpm type-check`, `pnpm format`, `pnpm lint` / `pnpm lint:fix`.
 
 ## Frontend runtime (critical)
 

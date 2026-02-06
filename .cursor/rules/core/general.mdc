@@ -41,4 +41,4 @@ Optimize for agent context by keeping **many small, focused files** and explicit
 
 ## Quality Gate
 
-- Always run the project's check script after meaningful changes (e.g. `yarn check:all`, `npm run check`).
+- Always run the project's check script after meaningful changes (e.g. `pnpm run check`, `npm run check`).

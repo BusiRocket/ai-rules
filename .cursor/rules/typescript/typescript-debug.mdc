@@ -10,7 +10,7 @@ alwaysApply: true
 
 Run this after every meaningful change:
 
-- The project's check script (e.g. `yarn check:all`, `npm run check`).
+- The project's check script (e.g. `pnpm run check`, `npm run check`).
 - If the project has separate steps: run type-check first, then format (format can fix some lint issues), then lint.
 
 ## If something fails

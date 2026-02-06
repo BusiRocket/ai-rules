@@ -61,10 +61,10 @@ Split immediately if any is true:
 
 ## Common issues and fixes
 
-| Issue              | Fix |
-|--------------------|-----|
-| Type error: `any`  | Use `unknown` and narrow with type guards. |
-| Unused import     | Remove or use the import. |
-| Missing return type | Add explicit return type. |
-| Circular dependency | Move shared types to `types/`. |
-| File too large    | Split into smaller focused files. |
+| Issue               | Fix                                        |
+| ------------------- | ------------------------------------------ |
+| Type error: `any`   | Use `unknown` and narrow with type guards. |
+| Unused import       | Remove or use the import.                  |
+| Missing return type | Add explicit return type.                  |
+| Circular dependency | Move shared types to `types/`.             |
+| File too large      | Split into smaller focused files.          |

@@ -28,7 +28,7 @@ Many small, focused files for maximum agent context efficiency.
 
 ## Quality Gate
 
-- Run the project's check script after meaningful changes (e.g. `yarn check:all`, `npm run check`).
+- Run the project's check script after meaningful changes (e.g. `pnpm run check`, `npm run check`).
 
 ## References
 

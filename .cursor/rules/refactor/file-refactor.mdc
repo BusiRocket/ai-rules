@@ -18,7 +18,7 @@ Use this rule by referencing **@refactor** when you need to refactor the current
 1. **Scan** the file: identify responsibilities (UI, state/effects, pure helpers, types, large constants).
 2. **Decide** what to extract using the heuristics and extraction decision tree in code-quality-guidelines (e.g. multiple functions → one per file; inline types → `types/<area>/`; complex logic → hook or util; repeated JSX → child components; large collections → constant files).
 3. **Extract** and create/update files; fix all imports; remove unused code.
-4. **Run** the project check script (e.g. `yarn check:all`, `npm run check`) and fix until clean.
+4. **Run** the project check script (e.g. `pnpm run check`, `npm run check`) and fix until clean.
 
 ## Mandatory after refactor
 

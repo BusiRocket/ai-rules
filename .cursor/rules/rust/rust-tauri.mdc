@@ -67,4 +67,4 @@ When creating a new Tauri command, **all three steps are required**:
 
 ## Validation
 
-After meaningful changes, run the project's check script (e.g. `yarn check:all`, `npm run check`).
+After meaningful changes, run the project's check script (e.g. `pnpm run check`, `npm run check`).

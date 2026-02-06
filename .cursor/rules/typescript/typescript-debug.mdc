@@ -18,6 +18,10 @@ Run this after every meaningful change:
 - Lint errors: prefer refactoring into smaller files instead of adding ignores.
 - Formatting churn: keep diffs small; avoid unrelated reformatting.
 
+## Frontend / Vite
+
+- In frontend bundles, **never reference Node globals** (e.g. `process`) at runtime; they can ship to the bundle and cause "process is not defined" in browsers or mobile webviews. Prefer `import.meta.env` (Vite) or equivalent for env vars.
+
 ## When to Split (fast heuristics)
 
 Split the file immediately if any is true:

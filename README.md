@@ -1,4 +1,4 @@
-# BusiRocket Rules
+# 🚀 BusiRocket Rules
 
 **Cursor IDE rules for maintainable, agent-friendly codebases** — Next.js, React, TypeScript, API boundaries, and optional Rust/Tauri.
 

@@ -100,4 +100,4 @@ Contributions are welcome. Please open an issue or a pull request. Keep rules un
 
 ## License
 
-[Choose your license](https://choosealicense.com/) (e.g. MIT, Apache-2.0) and add it here and in a `LICENSE` file in the repo root.
+MIT — see [LICENSE](LICENSE) for details.

@@ -42,6 +42,7 @@ Split immediately if any is true:
 
 ## Decision rules (creating and refactoring)
 
+- Apply SOLID principles: single responsibility per file; depend on abstractions where it helps.
 - If a file has multiple responsibilities, split immediately.
 - If a hook/component contains helpers, extract them to `utils/`.
 - If a file declares types inline, move them to `types/<area>/`.

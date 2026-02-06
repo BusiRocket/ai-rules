@@ -23,6 +23,7 @@ Optimize for agent context by keeping **many small, focused files** and explicit
 ## Code Style
 
 - English-only code, comments, and identifiers.
+- Prefer SOLID and KISS where applicable.
 - Prefer pure functions and hooks; avoid unnecessary classes.
 - Avoid deep nesting; extract early.
 

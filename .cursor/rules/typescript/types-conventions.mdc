@@ -1,6 +1,6 @@
 ---
 description: Types conventions (agent-optimized, one type per file)
-globs: types/**/*.ts
+globs: "types/**/*.ts"
 alwaysApply: true
 ---
 

@@ -1,6 +1,6 @@
 ---
 description: One-shot refactor of the currently selected file (@file)
-globs: *.ts,*.tsx
+globs: "*.ts,*.tsx"
 alwaysApply: true
 ---
 

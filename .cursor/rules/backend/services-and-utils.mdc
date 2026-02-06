@@ -1,6 +1,6 @@
 ---
 description: Contracts and naming for services/ vs utils/ (agent-optimized)
-globs: *
+globs: "*"
 alwaysApply: true
 ---
 

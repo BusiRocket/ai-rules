@@ -1,0 +1,26 @@
+---
+description: "Umbrella: Next.js + React + styling (pages, components, hooks, Tailwind)"
+globs: "app/**/*,components/**/*,hooks/**/*,*.tsx"
+alwaysApply: false
+---
+
+# Frontend Rules (umbrella)
+
+Use **@frontend** when working on UI, pages, components, or styling.
+
+This rule references:
+
+- **Next.js**: `.cursor/rules/nextjs/nextjs.mdc` — Server/Client components, special-file exports
+- **Route handlers**: `.cursor/rules/nextjs/route-handlers.mdc` — thin API handlers
+- **API responses**: `.cursor/rules/nextjs/api-response-shapes.mdc` — JSON shapes, status codes
+- **React architecture**: `.cursor/rules/react/react-architecture.mdc` — file discipline, splitting
+- **Components**: `.cursor/rules/react/component-patterns.mdc` — UI vs feature, one per file
+- **Hooks**: `.cursor/rules/react/hooks-guide.mdc` — one hook per file, no helpers/types inside
+- **State**: `.cursor/rules/react/state-management.mdc` — when to use stores (e.g. Zustand)
+- **Styling**: `.cursor/rules/styling/tailwindcss.mdc` — Tailwind v4 setup and class strategy
+
+## Short summary
+
+- Server Components by default; `'use client'` only when needed.
+- One component/hook per file; types in `types/`; helpers in `utils/`.
+- Prefer Tailwind in `className`; avoid large custom CSS.

@@ -1,6 +1,6 @@
 ---
 description: Post creating and refactoring checks (agent-optimized)
-globs: *.ts,*.tsx
+globs: "*.ts,*.tsx"
 alwaysApply: true
 ---
 

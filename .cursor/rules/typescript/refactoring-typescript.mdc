@@ -1,6 +1,6 @@
 ---
 description: Refactoring TypeScript/React (strict file splitting)
-globs: *.ts,*.tsx
+globs: "*.ts,*.tsx"
 alwaysApply: true
 ---
 

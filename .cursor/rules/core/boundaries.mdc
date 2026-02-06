@@ -1,6 +1,6 @@
 ---
 description: Boundaries & placement rules (agent-optimized)
-globs: *
+globs: "*"
 alwaysApply: true
 ---
 
@@ -30,10 +30,10 @@ If you are writing...
 
 ## References
 
-- Next.js rules: `.cursor/rules/nextjs.mdc`
-- Route handlers: `.cursor/rules/route-handlers.mdc`
-- API response shapes: `.cursor/rules/api-response-shapes.mdc`
-- Validation: `.cursor/rules/validation.mdc`
-- Naming/layout: `.cursor/rules/naming-and-layout.mdc`
-- utils vs services: `.cursor/rules/services-and-utils.mdc`
-- Anti-patterns: `.cursor/rules/anti-patterns.mdc`
+- Next.js: `.cursor/rules/nextjs/nextjs.mdc`
+- Route handlers: `.cursor/rules/nextjs/route-handlers.mdc`
+- API response shapes: `.cursor/rules/nextjs/api-response-shapes.mdc`
+- Validation: `.cursor/rules/api/validation.mdc`
+- Naming/layout: `.cursor/rules/core/naming-and-layout.mdc`
+- utils vs services: `.cursor/rules/backend/services-and-utils.mdc`
+- Anti-patterns: `.cursor/rules/core/anti-patterns.mdc`

@@ -1,6 +1,6 @@
 ---
 description: Rust + Tauri standards (strict one-thing-per-file)
-globs: *.rs,*.sql,*.prompt,*.txt
+globs: "*.rs,*.sql,*.prompt,*.txt"
 alwaysApply: true
 ---
 

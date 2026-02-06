@@ -1,6 +1,6 @@
 ---
 description: General Engineering Guidelines (agent-optimized)
-globs: *
+globs: "*"
 alwaysApply: true
 ---
 

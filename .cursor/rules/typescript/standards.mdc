@@ -1,6 +1,6 @@
 ---
 description: TypeScript + React standards (strict one-thing-per-file)
-globs: *.ts,*.tsx
+globs: "*.ts,*.tsx"
 alwaysApply: true
 ---
 

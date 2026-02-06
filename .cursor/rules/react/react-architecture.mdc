@@ -1,6 +1,6 @@
 ---
 description: React + TypeScript architecture (App Router, strict file discipline)
-globs: *.ts,*.tsx
+globs: "*.ts,*.tsx"
 alwaysApply: true
 ---
 
@@ -27,6 +27,6 @@ alwaysApply: true
 
 ## References
 
-- Naming/layout: `.cursor/rules/naming-and-layout.mdc`
-- Boundaries: `.cursor/rules/boundaries.mdc`
-- Strict TS: `.cursor/rules/typescript.mdc`
+- Naming/layout: `.cursor/rules/core/naming-and-layout.mdc`
+- Boundaries: `.cursor/rules/core/boundaries.mdc`
+- TypeScript: `.cursor/rules/typescript/standards.mdc`

@@ -1,6 +1,6 @@
 ---
 description: Next.js Route Handlers (thin handlers, service boundaries)
-globs: app/api/**/route.ts
+globs: "app/api/**/route.ts"
 alwaysApply: true
 ---
 
@@ -38,6 +38,6 @@ No business logic, no DB/network access directly in the handler.
 
 ## References
 
-- Response shapes: `.cursor/rules/api-response-shapes.mdc`
-- Validation: `.cursor/rules/validation.mdc`
-- utils vs services: `.cursor/rules/services-and-utils.mdc`
+- Response shapes: `.cursor/rules/nextjs/api-response-shapes.mdc`
+- Validation: `.cursor/rules/api/validation.mdc`
+- utils vs services: `.cursor/rules/backend/services-and-utils.mdc`

@@ -1,6 +1,6 @@
 ---
 description: Next.js App Router rules (agent-optimized)
-globs: app/**/*
+globs: "app/**/*"
 alwaysApply: true
 ---
 
@@ -27,7 +27,7 @@ alwaysApply: true
 
 ## Next Special Files: allowed extra exports
 
-These rules enforce “one export per file” for your own modules, **but Next.js special files require extra exports**.
+These rules enforce "one export per file" for your own modules, **but Next.js special files require extra exports**.
 
 Allowed exceptions:
 
@@ -36,5 +36,5 @@ Allowed exceptions:
 
 ## References
 
-- Route Handlers: `.cursor/rules/route-handlers.mdc`
-- Boundaries: `.cursor/rules/boundaries.mdc`
+- Route Handlers: `.cursor/rules/nextjs/route-handlers.mdc`
+- Boundaries: `.cursor/rules/core/boundaries.mdc`

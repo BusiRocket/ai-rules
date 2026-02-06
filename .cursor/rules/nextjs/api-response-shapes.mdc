@@ -1,6 +1,6 @@
 ---
 description: API response shapes (agent-optimized)
-globs: app/api/**/route.ts
+globs: "app/api/**/route.ts"
 alwaysApply: true
 ---
 

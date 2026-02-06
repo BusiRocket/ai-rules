@@ -9,11 +9,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "busirocket-rules@workspace:."
   dependencies:
-    prettier: "npm:^3.4.2"
+    prettier: "npm:^3.8.1"
   languageName: unknown
   linkType: soft
 
-"prettier@npm:^3.4.2":
+"prettier@npm:^3.8.1":
   version: 3.8.1
   resolution: "prettier@npm:3.8.1"
   bin:

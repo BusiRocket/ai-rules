@@ -1,6 +1,6 @@
 ---
 description: Project guidelines (strict one-thing-per-file, many small files)
-globs: *
+globs: "*"
 alwaysApply: true
 ---
 
@@ -32,5 +32,5 @@ Many small, focused files for maximum agent context efficiency.
 
 ## References
 
-- Naming/layout: `.cursor/rules/naming-and-layout.mdc`
-- Boundaries: `.cursor/rules/boundaries.mdc`
+- Naming/layout: `.cursor/rules/core/naming-and-layout.mdc`
+- Boundaries: `.cursor/rules/core/boundaries.mdc`

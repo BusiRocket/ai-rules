@@ -1,6 +1,6 @@
 ---
 description: Supabase services usage (only if Supabase is added)
-globs: *.ts,*.tsx
+globs: "*.ts,*.tsx"
 alwaysApply: false
 ---
 

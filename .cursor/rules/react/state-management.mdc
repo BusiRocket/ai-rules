@@ -1,6 +1,6 @@
 ---
 description: State management (Zustand) - when to use stores vs props, modal pattern
-globs: *.tsx,stores/**/*.ts
+globs: "*.tsx,stores/**/*.ts"
 alwaysApply: false
 ---
 

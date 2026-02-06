@@ -1,6 +1,6 @@
 ---
 description: Validation strategy (no new dependencies)
-globs: app/api/**/route.ts,services/**/*.ts,utils/**/*.ts
+globs: "app/api/**/route.ts,services/**/*.ts,utils/**/*.ts"
 alwaysApply: true
 ---
 

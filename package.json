@@ -4,8 +4,8 @@
   "private": true,
   "description": "Cursor rules template - reusable project rules",
   "scripts": {
-    "format": "prettier --write .cursor/rules/**/*.mdc",
-    "format:check": "prettier --check .cursor/rules/**/*.mdc"
+    "format": "prettier --write .cursor/rules/**/*.mdc && prettier --write README.md",
+    "format:check": "prettier --check .cursor/rules/**/*.mdc && prettier --check README.md"
   },
   "devDependencies": {
     "prettier": "^3.8.1"

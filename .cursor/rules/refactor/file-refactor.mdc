@@ -1,19 +1,26 @@
 ---
-description: One-shot refactor of the currently selected file (@file)
+description: Refactor current file – use @refactor or @file
 globs: "*.ts,*.tsx"
-alwaysApply: true
+alwaysApply: false
 ---
 
-# @file Refactor Workflow (strict)
+# Refactor (@refactor / @file)
 
-Use this rule by referencing: `@file`.
+Use this rule by referencing **@refactor** or **@file** when you need to refactor the currently selected file.
 
-## Hard Constraints
+## What to apply
 
-- Exactly one exported symbol per file.
-- No inline `interface`/`type` declarations in non-type files.
-- No helper functions inside components/hooks.
+- All quality criteria and extraction rules come from **code-quality-guidelines**: file size (10–50 target, ~100 max), one export per file, types in `types/<area>/`, no helpers inside components/hooks, constants in dedicated files, when to split, checklist.
+- Do not duplicate those rules here; read and apply [code-quality-guidelines.mdc](.cursor/rules/core/code-quality-guidelines.mdc).
 
-## Mandatory checks after refactor
+## Refactor workflow
 
-- Run the project's check script (e.g. `yarn check:all`, `npm run check`).
+1. **Scan** the file: identify responsibilities (UI, state/effects, pure helpers, types, large constants).
+2. **Decide** what to extract using the heuristics and extraction decision tree in code-quality-guidelines (e.g. multiple functions → one per file; inline types → `types/<area>/`; complex logic → hook or util; repeated JSX → child components; large collections → constant files).
+3. **Extract** and create/update files; fix all imports; remove unused code.
+4. **Run** the project check script (e.g. `yarn check:all`, `npm run check`) and fix until clean.
+
+## Mandatory after refactor
+
+- Run the project's check script.
+- Ensure the result satisfies the checklist in code-quality-guidelines.

@@ -1,34 +1,13 @@
 ---
-description: Refactoring TypeScript/React (strict file splitting)
+description: When creating or refactoring – follow code quality guidelines
 globs: "*.ts,*.tsx"
 alwaysApply: true
 ---
 
 # Refactoring TypeScript/React Code (strict)
 
-## Goals
+When **creating** new code or **refactoring** existing code, follow the single source of truth:
 
-- Many small files, each with a single responsibility.
-- Enforce one exported symbol per file.
-- Move all types to `types/` (one type per file).
-- Move all helpers to `utils/` (one function per file).
+- **[code-quality-guidelines.mdc](.cursor/rules/core/code-quality-guidelines.mdc)** – file size (10–50 target, ~100 max), one export per file, types in `types/`, no helpers inside components/hooks, no index files, constants in dedicated files, when to split, decision rules, checklist, common issues.
 
-## File Size
-
-- Prefer 30–60 lines per file; never exceed ~100 lines without a strong reason.
-
-## Decision Rules
-
-- If a file contains multiple responsibilities, split immediately.
-- If a hook/component contains helpers, extract them.
-- If a file declares types inline, move them to `types/`.
-- Limit logic in TSX to presentational concerns; move complex logic to hooks or `utils/`.
-- Pass full props into components; avoid computing derived data during prop passing; keep logic inside the component or its hooks.
-
-## Never Use Index Files
-
-- Import from concrete modules only.
-
-## Post-Refactor Checks (MANDATORY)
-
-- Run the project's check script (e.g. `yarn check:all`, `npm run check`).
+For a **one-shot refactor** of the current file, use **@refactor** or **@file** (see [file-refactor.mdc](.cursor/rules/refactor/file-refactor.mdc)).

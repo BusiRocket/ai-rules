@@ -1,12 +1,12 @@
 ---
-description: Post creating and refactoring checks (agent-optimized)
+description: Post creating and refactoring checks (run after every meaningful change)
 globs: "*.ts,*.tsx"
 alwaysApply: true
 ---
 
 # Post Creating and Refactoring Checks
 
-## Golden Path
+## Golden path
 
 Run this after every meaningful change:
 
@@ -23,12 +23,6 @@ Run this after every meaningful change:
 
 - In frontend bundles, **never reference Node globals** (e.g. `process`) at runtime; they can ship to the bundle and cause "process is not defined" in browsers or mobile webviews. Prefer `import.meta.env` (Vite) or equivalent for env vars.
 
-## When to Split (fast heuristics)
+## Checklist and common issues
 
-Split the file immediately if any is true:
-
-- More than one exported symbol.
-- More than one responsibility (UI + state + helpers).
-- Any helper function exists inside a component/hook.
-- Inline `type`/`interface` exists outside `types/`.
-- File > ~80 lines and still growing.
+- For the full checklist (file size, one per file, types in `types/`, etc.) and common issues/fixes, see [code-quality-guidelines.mdc](.cursor/rules/core/code-quality-guidelines.mdc).

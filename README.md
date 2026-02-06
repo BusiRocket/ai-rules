@@ -22,24 +22,37 @@ A reusable set of [Cursor rules](https://docs.cursor.com/context/rules-for-ai) o
 
 ---
 
+## Global setup (symlink)
+
+To use these rules in all projects, clone the repo and symlink `.cursor/rules` into your Cursor config:
+
+```bash
+git clone https://github.com/BusiRocket/ai-rules.git
+ln -s "$(pwd)/ai-rules/.cursor/rules" ~/.cursor/rules
+```
+
+If you cloned into a different directory, use that path as the source:
+
+```bash
+ln -s /path/to/ai-rules/.cursor/rules ~/.cursor/rules
+```
+
+Cursor will then load these rules globally. To use rules per project instead, see [Quick start](#quick-start) below.
+
+---
+
 ## Quick start
 
 1. **Copy the rules into your repo:**
 
    ```bash
-   git clone https://github.com/YOUR_ORG/busirocket-rules.git /tmp/busirocket-rules
-   cp -r /tmp/busirocket-rules/.cursor/rules .cursor/
+   git clone https://github.com/BusiRocket/ai-rules.git /tmp/ai-rules
+   cp -r /tmp/ai-rules/.cursor/rules .cursor/
    ```
 
    Or copy the `.cursor/rules` folder from this repo into your project root so you have `.cursor/rules/` with all `.mdc` files.
 
-2. **Optional — format rules (Prettier):**
-
-   ```bash
-   cd /path/to/your/project
-   pnpm add -D prettier   # or npm/yarn
-   pnpm exec prettier --write ".cursor/rules/**/*.mdc"
-   ```
+2. **Optional — format rules:** from this repo, run `pnpm format` (Prettier and deps are already installed).
 
 3. **Use umbrella rules in Cursor** when you want one rule that pulls in several:
    - **@core** — project, general, boundaries, naming, anti-patterns

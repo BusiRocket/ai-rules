@@ -14,6 +14,8 @@ Optimize the codebase for agent context and long-term maintainability by enforci
 
 - Use `interface` for exported shapes; use `type` for unions only.
 - Prefer const objects or union types over enums.
+- Prefer arrow functions for non-component code where possible.
+- Import React members selectively (e.g. `import { useEffect } from 'react'`) rather than `import * as React`.
 - `const` by default; `let` only when necessary.
 - English-only code, comments, and identifiers.
 - Sort props alphabetically when feasible for consistency.

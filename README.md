@@ -56,27 +56,37 @@ Cursor will then load these rules globally. To use rules per project instead, se
 
 3. **Use umbrella rules in Cursor** when you want one rule that pulls in several:
    - **@core** — project, general, boundaries, naming, anti-patterns
-   - **@frontend** — Next.js, React, components, hooks, state, Tailwind
+   - **@frontend** — Next.js, React, components, hooks, state, Tailwind, Vite runtime (when using Vite)
    - **@typescript** — TS standards, types, refactoring, post-change checks
    - **@api** — route handlers, response shapes, validation, services vs utils
    - **@refactor** — @file refactor + TypeScript refactoring
    - **@rust** — Rust + Tauri (when used)
+   - **@bash** — Bash/Shell standards and @file refactor for `.sh` files
+   - **@python** — Python schema-driven development and UV
+   - **@n8n** — n8n workflow design and MCP tools
+   - **@deploy** — K8s Helm deploy and agent (Sonnet) guidelines
 
 ---
 
 ## Folder layout
 
-| Folder        | Purpose                                                                    |
-| ------------- | -------------------------------------------------------------------------- |
-| `core/`       | Project guidelines, general engineering, boundaries, naming, anti-patterns |
-| `typescript/` | TypeScript standards, type conventions, refactoring, post-change checks    |
-| `nextjs/`     | App Router, route handlers, API response shapes                            |
-| `react/`      | React architecture, components, hooks, state (e.g. Zustand)                |
-| `api/`        | Validation at boundaries                                                   |
-| `styling/`    | Tailwind CSS v4                                                            |
-| `backend/`    | services vs utils, Supabase (when used)                                    |
-| `refactor/`   | @file refactor workflow                                                    |
-| `rust/`       | Rust + Tauri (when used)                                                   |
+| Folder          | Purpose                                                                    |
+| --------------- | -------------------------------------------------------------------------- |
+| `core/`         | Project guidelines, general engineering, boundaries, naming, anti-patterns |
+| `typescript/`   | TypeScript standards, type conventions, refactoring, post-change checks    |
+| `nextjs/`       | App Router, route handlers, API response shapes                            |
+| `react/`        | React architecture, components, hooks, state (e.g. Zustand)                |
+| `api/`          | Validation at boundaries                                                   |
+| `styling/`      | Tailwind CSS v4                                                            |
+| `backend/`      | services vs utils, Supabase (when used)                                    |
+| `refactor/`     | @file refactor workflow                                                    |
+| `rust/`         | Rust + Tauri (when used)                                                   |
+| `bash/`         | Bash/Shell standards and @file refactor for `.sh`                          |
+| `python/`       | Python schema-driven development and UV                                    |
+| `n8n/`          | n8n workflow design and MCP tools                                          |
+| `deploy/`       | Agent (Sonnet) guidelines for deploy flows                                 |
+| `vite/`         | Vite runtime safety (no Node globals in browser bundles)                   |
+| `integrations/` | Integrations (e.g. Staffbase)                                              |
 
 ---
 

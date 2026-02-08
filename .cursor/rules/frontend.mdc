@@ -11,6 +11,7 @@ Use **@frontend** when working on UI, pages, components, or styling.
 This rule references:
 
 - **Next.js umbrella**: `.cursor/rules/nextjs.mdc` — App Router architecture bundle
+- **React umbrella**: `.cursor/rules/react.mdc` — architecture, hooks, state, a11y, forms, performance
 - **Next.js**: `.cursor/rules/nextjs/nextjs.mdc` — Server/Client components, special-file exports
 - **Route handlers**: `.cursor/rules/nextjs/route-handlers.mdc` — thin API handlers
 - **Server actions**: `.cursor/rules/nextjs/server-actions.mdc` — validation, typed result shapes, expected failures
@@ -19,12 +20,6 @@ This rule references:
 - **Rendering/performance**: `.cursor/rules/nextjs/rendering-performance.mdc` — dynamic imports, image/script strategy
 - **Error/observability**: `.cursor/rules/nextjs/error-observability.mdc` — boundaries and logging context
 - **API responses**: `.cursor/rules/nextjs/api-response-shapes.mdc` — JSON shapes, status codes
-- **React architecture**: `.cursor/rules/react/react-architecture.mdc` — file discipline, splitting
-- **Components**: `.cursor/rules/react/component-patterns.mdc` — UI vs feature, one per file
-- **Hooks**: `.cursor/rules/react/hooks-guide.mdc` — one hook per file, no helpers/types inside
-- **Accessibility**: `.cursor/rules/react/accessibility.mdc` — semantic HTML, keyboard/focus/form rules
-- **URL/server state**: `.cursor/rules/react/url-server-state.mdc` — `nuqs`, RSC-first, TanStack Query opt-in
-- **State**: `.cursor/rules/react/state-management.mdc` — when to use stores (e.g. Zustand)
 - **Styling**: `.cursor/rules/styling/tailwindcss.mdc` — Tailwind v4 setup and class strategy
 - **Vite runtime** (when using Vite): `.cursor/rules/vite/runtime-safety.mdc` — no Node globals in browser bundles; use `import.meta.env`
 

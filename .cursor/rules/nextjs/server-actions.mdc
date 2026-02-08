@@ -1,7 +1,7 @@
 ---
 description: Next.js server actions standards (validation, response shape, expected errors)
-globs: "app/**/*.ts,app/**/*.tsx,services/**/*.ts"
-alwaysApply: true
+globs: "app/**/actions.ts,app/**/actions/**/*.ts,app/**/*action*.ts,app/**/*action*.tsx"
+alwaysApply: false
 ---
 
 # Server Actions Standards

@@ -28,8 +28,8 @@ alwaysApply: true
 
 ## Identifier naming
 
-- Event handlers: prefix with `handle` (`handleClick`, `handleSubmit`).
-- Booleans: use auxiliary verbs (`isLoading`, `hasError`, `canSubmit`, `shouldRetry`).
+- Framework-agnostic naming rules stay here.
+- React-specific handler/boolean/hook naming lives in `.cursor/rules/react/naming.mdc`.
 
 ## Exports
 

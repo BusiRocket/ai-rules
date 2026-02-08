@@ -15,6 +15,7 @@ This rule references the following; for full detail open each:
 - **Boundaries**: `.cursor/rules/core/boundaries.mdc` — where to put routes, components, hooks, utils, services, types
 - **Naming & layout**: `.cursor/rules/core/naming-and-layout.mdc` — folder layout, file naming, exports
 - **Anti-patterns**: `.cursor/rules/core/anti-patterns.mdc` — what to avoid (barrels, inline types, fat handlers)
+- **Security baseline**: `.cursor/rules/core/security-baseline.mdc` — XSS/secrets/least-privilege defaults
 
 ## Short summary
 

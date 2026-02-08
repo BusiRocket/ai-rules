@@ -18,6 +18,7 @@ alwaysApply: true
 - If class strings become hard to read:
   - Extract a small presentational component.
   - Or extract a `components/<area>/...` wrapper rather than inventing large custom CSS.
+  - If the project already uses CVA, define variant-heavy component styles with CVA instead of manual class branching.
 
 ## Avoid Drift
 

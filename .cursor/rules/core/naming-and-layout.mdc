@@ -26,6 +26,11 @@ alwaysApply: true
 - Utils/services: verb-noun, lower camel or lower kebab; pick one and stay consistent within a folder.
 - Types: PascalCase, match the exported symbol name.
 
+## Identifier naming
+
+- Event handlers: prefix with `handle` (`handleClick`, `handleSubmit`).
+- Booleans: use auxiliary verbs (`isLoading`, `hasError`, `canSubmit`, `shouldRetry`).
+
 ## Exports
 
 - Next.js route components (`app/**/page.tsx`, `layout.tsx`): **default export** (required by conventions).

@@ -23,6 +23,13 @@ alwaysApply: true
 ## Route UX Files
 
 - If a route fetches data or is non-trivial, include `loading.tsx` and `error.tsx` for consistent UX and error boundaries.
+- Add `global-error.tsx` for app-level unexpected failures.
+
+## Built-in Components
+
+- Use `<Link />` for internal navigation.
+- Use `<Image />` for user-facing images with explicit dimensions.
+- Use `<Script />` for third-party scripts instead of ad-hoc script tags.
 
 ## Protecting Server-only Code
 
@@ -41,4 +48,5 @@ Allowed exceptions:
 ## References
 
 - Route Handlers: `.cursor/rules/nextjs/route-handlers.mdc`
+- Server Actions: `.cursor/rules/nextjs/server-actions.mdc`
 - Boundaries: `.cursor/rules/core/boundaries.mdc`

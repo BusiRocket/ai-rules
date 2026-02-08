@@ -1,0 +1,25 @@
+---
+description: Playwright QA standards (locator strategy, determinism, maintainability)
+globs: "**/*.spec.ts,**/*.spec.js,tests/**/*.ts,tests/**/*.js"
+alwaysApply: false
+---
+
+# Playwright QA
+
+## Test design
+
+- Use isolated tests and deterministic fixtures.
+- Prefer semantic locators: `getByRole`, `getByLabel`, `getByText`,
+  `getByTestId`.
+- Avoid fixed sleeps/timeouts; wait on explicit conditions.
+
+## Maintainability
+
+- Use helper utilities for repeated setup/flows.
+- Follow Arrange-Act-Assert structure.
+- Prioritize critical user journeys for coverage.
+
+## Reliability
+
+- Keep assertions explicit and user-visible.
+- Avoid brittle selectors tied to implementation details.

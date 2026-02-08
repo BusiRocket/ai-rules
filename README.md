@@ -59,8 +59,11 @@ Cursor will then load these rules globally. To use rules per project instead, se
    - **@react** — React architecture, hooks, state, accessibility, forms, performance, security
    - **@nextjs** — App Router architecture, route handlers, data fetching, server actions, performance, error handling
    - **@frontend** — Next.js, React, components, hooks, state, Tailwind, Vite runtime (when using Vite)
+   - **@tailwind** — Tailwind v4 standards (baseline, tokens, class authoring, states, responsive, hygiene)
    - **@typescript** — TS standards, types, refactoring, post-change checks
+   - **@javascript** — JS/TS domain rules (web apps, MV3 extensions, RN/Expo, Playwright, Shopify theme)
    - **@api** — route handlers, response shapes, validation, services vs utils
+   - **@php** — general PHP + Laravel + WordPress + Drupal standards
    - **@refactor** — @file refactor + TypeScript refactoring
    - **@rust** — Rust + Tauri (when used)
    - **@bash** — Bash/Shell standards and @file refactor for `.sh` files
@@ -76,10 +79,12 @@ Cursor will then load these rules globally. To use rules per project instead, se
 | --------------- | -------------------------------------------------------------------------- |
 | `core/`         | Project guidelines, general engineering, boundaries, naming, anti-patterns |
 | `typescript/`   | TypeScript standards, type conventions, refactoring, post-change checks    |
+| `javascript/`   | JavaScript/TypeScript domain rules (extensions, QA, RN, Shopify, web)      |
+| `php/`          | PHP general standards + Laravel, WordPress, Drupal                         |
 | `nextjs/`       | App Router, route handlers, API response shapes                            |
 | `react/`        | React architecture, components, hooks, state (e.g. Zustand)                |
 | `api/`          | Validation at boundaries                                                   |
-| `styling/`      | Tailwind CSS v4                                                            |
+| `styling/`      | Styling rules (Tailwind split by concepts under `styling/tailwind/`)       |
 | `backend/`      | services vs utils, Supabase (when used)                                    |
 | `refactor/`     | @file refactor workflow                                                    |
 | `rust/`         | Rust + Tauri (when used)                                                   |

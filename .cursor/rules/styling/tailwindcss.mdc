@@ -1,30 +1,18 @@
 ---
-description: Tailwind CSS v4 best practices (agent-optimized)
+description: Legacy Tailwind entrypoint (use @tailwind umbrella)
 globs: "*.ts,*.tsx,*.css"
-alwaysApply: true
+alwaysApply: false
 ---
 
-# Tailwind CSS v4 Best Practices
+# Tailwind Legacy Pointer
 
-## Setup (docs-aligned)
+Use **@tailwind** and the split Tailwind rules:
 
-- Import Tailwind via a single global CSS entry:
-  - `@import 'tailwindcss';`
-- Keep that global CSS imported from the root layout.
-
-## Class Strategy
-
-- Prefer Tailwind utilities in `className` for most styling.
-- If class strings become hard to read:
-  - Extract a small presentational component.
-  - Or extract a `components/<area>/...` wrapper rather than inventing large custom CSS.
-  - If the project already uses CVA, define variant-heavy component styles with CVA instead of manual class branching.
-
-## Avoid Drift
-
-- Avoid large custom CSS files; keep custom CSS truly global (resets, tokens).
-- Avoid heavy use of arbitrary values unless necessary; prefer consistent tokens.
-
-## Ordering
-
-- CSS order depends on import order. Keep global CSS imports centralized (root layout) to avoid surprises.
+- `.cursor/rules/tailwind.mdc`
+- `.cursor/rules/styling/tailwind/baseline.mdc`
+- `.cursor/rules/styling/tailwind/tokens-theming.mdc`
+- `.cursor/rules/styling/tailwind/class-authoring.mdc`
+- `.cursor/rules/styling/tailwind/state-accessibility.mdc`
+- `.cursor/rules/styling/tailwind/responsive.mdc`
+- `.cursor/rules/styling/tailwind/performance-hygiene.mdc`
+- `.cursor/rules/styling/tailwind/stack-notes.mdc`

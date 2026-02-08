@@ -12,6 +12,7 @@ This rule references the following; for full detail open each:
 
 - **Project & quality**: `.cursor/rules/core/project.mdc` — one-thing-per-file, check script
 - **General**: `.cursor/rules/core/general.mdc` — agent defaults, code style, repo hygiene
+- **JavaScript umbrella** (optional): `.cursor/rules/javascript.mdc` — cross-runtime JS/TS domain rules
 - **Boundaries**: `.cursor/rules/core/boundaries.mdc` — where to put routes, components, hooks, utils, services, types
 - **Naming & layout**: `.cursor/rules/core/naming-and-layout.mdc` — folder layout, file naming, exports
 - **Anti-patterns**: `.cursor/rules/core/anti-patterns.mdc` — what to avoid (barrels, inline types, fat handlers)

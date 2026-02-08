@@ -12,6 +12,7 @@ This rule references:
 
 - **Next.js umbrella**: `.cursor/rules/nextjs.mdc` — App Router architecture bundle
 - **React umbrella**: `.cursor/rules/react.mdc` — architecture, hooks, state, a11y, forms, performance
+- **JavaScript umbrella** (optional): `.cursor/rules/javascript.mdc` — extensions, QA, RN/Expo, Shopify JS, cross-runtime rules
 - **Next.js**: `.cursor/rules/nextjs/nextjs.mdc` — Server/Client components, special-file exports
 - **Route handlers**: `.cursor/rules/nextjs/route-handlers.mdc` — thin API handlers
 - **Server actions**: `.cursor/rules/nextjs/server-actions.mdc` — validation, typed result shapes, expected failures
@@ -20,7 +21,7 @@ This rule references:
 - **Rendering/performance**: `.cursor/rules/nextjs/rendering-performance.mdc` — dynamic imports, image/script strategy
 - **Error/observability**: `.cursor/rules/nextjs/error-observability.mdc` — boundaries and logging context
 - **API responses**: `.cursor/rules/nextjs/api-response-shapes.mdc` — JSON shapes, status codes
-- **Styling**: `.cursor/rules/styling/tailwindcss.mdc` — Tailwind v4 setup and class strategy
+- **Tailwind umbrella**: `.cursor/rules/tailwind.mdc` — Tailwind v4 standards split by concept
 - **Vite runtime** (when using Vite): `.cursor/rules/vite/runtime-safety.mdc` — no Node globals in browser bundles; use `import.meta.env`
 
 ## Short summary

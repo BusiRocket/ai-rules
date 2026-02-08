@@ -56,6 +56,7 @@ Cursor will then load these rules globally. To use rules per project instead, se
 
 3. **Use umbrella rules in Cursor** when you want one rule that pulls in several:
    - **@core** — project, general, boundaries, naming, anti-patterns
+   - **@nextjs** — App Router architecture, route handlers, data fetching, server actions, performance, error handling
    - **@frontend** — Next.js, React, components, hooks, state, Tailwind, Vite runtime (when using Vite)
    - **@typescript** — TS standards, types, refactoring, post-change checks
    - **@api** — route handlers, response shapes, validation, services vs utils

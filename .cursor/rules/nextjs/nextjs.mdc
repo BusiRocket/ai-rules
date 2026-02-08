@@ -25,6 +25,10 @@ alwaysApply: true
 - If a route fetches data or is non-trivial, include `loading.tsx` and `error.tsx` for consistent UX and error boundaries.
 - Add `global-error.tsx` for app-level unexpected failures.
 
+## Metadata APIs
+
+- Prefer App Router metadata APIs (`metadata`, `generateMetadata`) over legacy `<Head />` patterns.
+
 ## Built-in Components
 
 - Use `<Link />` for internal navigation.
@@ -35,6 +39,10 @@ alwaysApply: true
 
 - Avoid importing server-only code (secrets, DB calls) into Client Components.
 - If needed later, consider marking modules with `server-only` / `client-only` (optional).
+
+## Caching intent
+
+- Route/data caching must be explicit and intentional; avoid accidental stale behavior.
 
 ## Next Special Files: allowed extra exports
 
@@ -49,4 +57,7 @@ Allowed exceptions:
 
 - Route Handlers: `.cursor/rules/nextjs/route-handlers.mdc`
 - Server Actions: `.cursor/rules/nextjs/server-actions.mdc`
+- Data Fetching: `.cursor/rules/nextjs/data-fetching.mdc`
+- Rendering/Performance: `.cursor/rules/nextjs/rendering-performance.mdc`
+- Error/Observability: `.cursor/rules/nextjs/error-observability.mdc`
 - Boundaries: `.cursor/rules/core/boundaries.mdc`

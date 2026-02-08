@@ -20,6 +20,10 @@ alwaysApply: true
 
 - Props passed from Server -> Client must be **serializable**.
 
+## Route UX Files
+
+- If a route fetches data or is non-trivial, include `loading.tsx` and `error.tsx` for consistent UX and error boundaries.
+
 ## Protecting Server-only Code
 
 - Avoid importing server-only code (secrets, DB calls) into Client Components.

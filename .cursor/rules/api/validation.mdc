@@ -20,6 +20,7 @@ Validate inputs consistently without adding validation libraries.
 
 - Prefer `unknown` inputs at boundaries + explicit narrowing.
 - Use tiny guard/coercion helpers instead of casting.
+- If the project already uses Zod, prefer Zod schemas at boundaries; do not add Zod only for trivial validation.
 
 ## Recommended helpers (examples)
 

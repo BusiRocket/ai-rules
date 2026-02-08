@@ -14,6 +14,7 @@ These patterns destroy agent context quality and make refactors risky.
 - **Barrel/index files** (`index.ts`) that hide dependencies.
 - **Growing "misc" modules** (`helpers.ts`, `utils.ts`, `types.ts`, `constants.ts`).
 - **God functions** that fetch/read/parse/transform/branch in one place instead of being split into single-purpose helpers.
+- **TODO/placeholders** in delivered code.
 
 ## Types
 
@@ -35,4 +36,5 @@ These patterns destroy agent context quality and make refactors risky.
 
 ## Dependencies
 
-- Adding libraries for trivial helpers (date formatting, string utils) without explicit approval.
+- Adding a new dependency without first checking whether the repo already has one that solves the same problem.
+- Rebuilding complex systems in-house when a mature library is the better engineering choice.

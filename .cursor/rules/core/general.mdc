@@ -10,11 +10,20 @@ alwaysApply: true
 
 Optimize for agent context by keeping **many small, focused files** and explicit boundaries.
 
+## Scope Priority
+
+- Primary by default: TypeScript, React, Next.js App Router, Tailwind.
+- Secondary only when relevant in the repo: Zod, Zustand, TanStack Query, `nuqs`, `next-safe-action`.
+- Out of scope unless explicitly requested: React Native/Expo, Vue/Nuxt, NestJS, Chrome Extensions.
+
 ## Agent Defaults
 
 - Prefer small, safe changes over sweeping refactors unless requested.
 - When requirements are ambiguous, ask a clarifying question before coding.
-- Avoid adding new dependencies unless explicitly approved.
+- Dependencies policy:
+- First, check if an existing dependency in the repo already solves the problem (UI, icons, dates, validation, data access, etc.).
+- If existing dependencies are insufficient, research and suggest the best-fit library with brief tradeoffs.
+- Prefer mature libraries over building complex systems in-house (dates, advanced UI, rich text, DB/ORM, complex state/query layers).
 - Keep changes reversible; avoid touching unrelated files.
 - Use subagents to process multiple files in parallel when the task involves several independent edits.
 - Plan before executing: create a short plan before modifying code; ask if scope is unclear.
@@ -26,6 +35,12 @@ Optimize for agent context by keeping **many small, focused files** and explicit
 - Prefer SOLID and KISS where applicable.
 - Prefer pure functions and hooks; avoid unnecessary classes.
 - Avoid deep nesting; extract early.
+- Prefer guard clauses and early returns to reduce nesting.
+- Avoid magic numbers; name them as constants.
+
+## Priorities
+
+- Correctness > clarity > maintainability > performance.
 
 ## Repo Hygiene
 

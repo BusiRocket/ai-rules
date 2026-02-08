@@ -18,6 +18,7 @@ alwaysApply: true
 
 ## File naming
 
+- Directories: kebab-case.
 - Components: PascalCase filenames, folder-namespaced when complex:
   - `components/orders/OrderCard/OrderCard.tsx`
   - `components/orders/OrderCard/Header.tsx`

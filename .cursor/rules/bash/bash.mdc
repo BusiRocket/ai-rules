@@ -46,7 +46,7 @@ alwaysApply: false
 
 ## Naming (DevOps / automation)
 
-- camelCase for variables/functions in some contexts; snake_case for file names and directory structures.
+- Use `snake_case` for variables and functions; use `snake_case` for file and directory names.
 - UPPER_CASE for environment variables.
 - Avoid hard-coded values; use environment variables or config files.
 - Principle of least privilege for access and permissions.

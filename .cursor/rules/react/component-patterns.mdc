@@ -14,6 +14,7 @@ alwaysApply: true
 ## Component Guidelines
 
 - Keep components small (<100 lines preferred, <200 max); extract sub-components when complexity grows.
+- Prefer components that orchestrate small, single-purpose helpers and hooks.
 
 ## One Component Per File (STRICT)
 

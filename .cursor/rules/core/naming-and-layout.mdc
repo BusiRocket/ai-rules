@@ -11,8 +11,8 @@ alwaysApply: true
 - `app/`: routing, layouts, route handlers
 - `components/<area>/...`: reusable UI
 - `hooks/<area>/useXxx.ts`: one hook per file
-- `utils/<area>/xxx.ts`: one pure helper function per file
-- `services/<area>/xxx.ts`: one boundary function per file (network/DB/integrations)
+- `utils/<area>/xxx.ts`: one pure helper function per file (single-purpose)
+- `services/<area>/xxx.ts`: one boundary function per file (single-purpose; network/DB/integrations)
 - `types/<area>/Xxx.ts`: one type/interface per file
 - `stores/<storeName>.ts`: Zustand (or similar) stores, when used
 

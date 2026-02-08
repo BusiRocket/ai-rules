@@ -19,6 +19,11 @@ alwaysApply: true
 - No inline `interface`/`type` in non-type files; put types in `types/<area>/` (one type per file).
 - No helper functions inside components/hooks; extract to `utils/<area>/`.
 - No index/barrel files; import from concrete modules.
+- **Single-purpose functions only**: each function does one task. If a function contains multiple steps (fetch/read/parse/transform/branching), split into smaller functions and orchestrate them from a parent function.
+
+## Framework-specific exceptions
+
+Any framework-specific exceptions to "one export per file" live in the framework rule files (e.g. Next.js).
 
 ## Constants and large data
 
@@ -48,6 +53,7 @@ Split immediately if any is true:
 - If a file declares types inline, move them to `types/<area>/`.
 - Limit logic in TSX to presentational concerns; move complex logic to hooks or `utils/`.
 - Pass full props into components; avoid computing derived data during prop passing; keep logic inside the component or its hooks.
+- If a function reads like a checklist of steps, split it into small single-purpose functions and keep a thin orchestrator.
 
 ## Checklist (after creating or refactoring)
 

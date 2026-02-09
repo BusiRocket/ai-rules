@@ -1,7 +1,7 @@
 ---
 description: Project guidelines (strict one-thing-per-file, many small files)
-globs: "*"
-alwaysApply: true
+globs: "*.ts,*.tsx"
+alwaysApply: false
 ---
 
 # Project Guidelines

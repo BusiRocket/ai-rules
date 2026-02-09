@@ -1,7 +1,7 @@
 ---
 description: Contracts and naming for services/ vs utils/ (agent-optimized)
-globs: "*"
-alwaysApply: true
+globs: "*.ts,*.tsx,*.js,*.mjs,*.cjs"
+alwaysApply: false
 ---
 
 # services/ vs utils/ (contracts)

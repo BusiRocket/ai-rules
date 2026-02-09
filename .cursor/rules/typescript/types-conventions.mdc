@@ -8,7 +8,9 @@ alwaysApply: true
 
 ## One Type Per File (STRICT)
 
-- Each file under `types/` exports **exactly one** `interface` (preferred) or `type` (unions only).
+- Each file under `types/` exports **exactly one** `interface` (preferred for
+  extendable object contracts) or `type` (unions and utility/mapped/conditional
+  types).
 - File name must match the exported symbol.
 
 ## Naming Patterns

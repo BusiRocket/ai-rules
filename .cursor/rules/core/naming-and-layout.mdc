@@ -1,7 +1,7 @@
 ---
 description: Naming & layout conventions (agent-optimized)
-globs: "*"
-alwaysApply: true
+globs: "*.ts,*.tsx"
+alwaysApply: false
 ---
 
 # Naming & Layout Conventions

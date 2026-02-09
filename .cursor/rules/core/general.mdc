@@ -15,6 +15,10 @@ Optimize for agent context by keeping **many small, focused files** and explicit
 - Primary by default: TypeScript, React, Next.js App Router, Tailwind.
 - Secondary only when relevant in the repo: Zod, React Hook Form, Zustand, TanStack Query, `nuqs`, `next-safe-action`, Supabase, GraphQL tooling, Vercel AI SDK.
 - Out of scope unless explicitly requested: React Native/Expo, Vue/Nuxt/Gatsby/SvelteKit, NestJS, Chrome Extensions, Pixi.js, Prisma.
+- For other languages, use their umbrellas:
+  - PHP: `@php`
+  - Rust/Tauri: `@rust`
+  - Bash/Shell: `@bash`
 
 ## Agent Defaults
 

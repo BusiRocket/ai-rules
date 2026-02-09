@@ -1,6 +1,6 @@
 ---
 description: "Umbrella: core project rules (file discipline, boundaries, naming, anti-patterns)"
-globs: "*"
+globs: "*.ts,*.tsx,*.js,*.mjs,*.cjs"
 alwaysApply: false
 ---
 
@@ -23,3 +23,4 @@ This rule references the following; for full detail open each:
 - Many small files; one exported symbol per file; no inline types; no helpers inside components/hooks.
 - Route handlers thin: validate → call service → return response.
 - Run the project check script after meaningful changes.
+- For non-JS/TS stacks, use stack umbrellas directly (`@php`, `@rust`, `@bash`).

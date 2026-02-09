@@ -1,7 +1,7 @@
 ---
 description: Boundaries & placement rules (agent-optimized)
-globs: "*"
-alwaysApply: true
+globs: "*.ts,*.tsx"
+alwaysApply: false
 ---
 
 # Boundaries & Placement (agent-optimized)

@@ -302,6 +302,7 @@ This rule references the following; for full detail open each:
 
 - **Project & quality**: `.cursor/rules/core/project.mdc` — one-thing-per-file, check script
 - **General**: `.cursor/rules/core/general.mdc` — agent defaults, code style, repo hygiene
+- **Text hygiene**: `.cursor/rules/core/text-hygiene.mdc` — ASCII punctuation and no invisible chars in docs/config
 - **JavaScript umbrella** (optional): `.cursor/rules/javascript.mdc` — cross-runtime JS/TS domain rules
 - **Boundaries**: `.cursor/rules/core/boundaries.mdc` — where to put routes, components, hooks, utils, services, types
 - **Naming & layout**: `.cursor/rules/core/naming-and-layout.mdc` — folder layout, file naming, exports
@@ -685,6 +686,35 @@ alwaysApply: true
 - Log actionable context, never secrets or personal tokens.
 ```
 
+## core/text-hygiene.mdc
+
+```mdc
+---
+description: Text hygiene for docs/config (ASCII punctuation)
+globs: "*.md,*.mdc,.github/**/*"
+alwaysApply: true
+---
+
+# Text Hygiene (ASCII)
+
+## Goal
+
+Keep docs/config text easy to diff and safe for tooling.
+
+## Rules
+
+- Prefer ASCII punctuation in edited/new text.
+- Use straight quotes (`'` and `"`) instead of smart quotes.
+- Use ASCII hyphen (`-`) instead of long dashes.
+- Avoid invisible/problematic characters (NBSP, zero-width chars).
+- Keep edits minimal; do not reformat unrelated content.
+
+## Output discipline
+
+- If non-ASCII text hygiene issues are found, call them out explicitly.
+- Preserve meaning while replacing problematic characters.
+```
+
 ## deploy.mdc
 
 ```mdc
@@ -701,10 +731,43 @@ Use **@deploy** when working on deployment scripts, K8s/Helm, or agent-driven de
 This rule references:
 
 - **Sonnet/agent**: `.cursor/rules/deploy/sonnet.mdc` — codebase search first, list rules, output discipline
+- **GitHub security**: `.cursor/rules/deploy/github-security.mdc` — secrets handling and workflow hardening
 
 ## Short summary
 
 - Agent: search codebase first; check existing files before creating; list rules when helpful.
+```
+
+## deploy/github-security.mdc
+
+```mdc
+---
+description: GitHub secret-handling and workflow hardening
+globs: ".github/workflows/**/*,.env*,*.env"
+alwaysApply: false
+---
+
+# GitHub Security and Secrets
+
+## Non-negotiable
+
+- Never hardcode secrets in code, docs, workflows, or examples.
+- Never commit real `.env` files; keep placeholders in `.env.example`.
+- Assume leaked credentials are compromised and must be rotated.
+
+## CI/workflow rules
+
+- Use least-privilege workflow `permissions:` and elevate only when needed.
+- Prefer `GITHUB_TOKEN` when sufficient; avoid long-lived PATs.
+- Treat forked PR input as untrusted; avoid unsafe interpolation in scripts.
+- Pin third-party GitHub Actions to immutable versions (prefer full SHA).
+- Avoid printing secrets in logs; mask sensitive runtime values before output.
+
+## Incident baseline
+
+1. Rotate/revoke exposed credentials first.
+2. Remove/replace usage in code/config and redeploy.
+3. Add prevention (ignore rules + secret scanning in dev/CI).
 ```
 
 ## deploy/sonnet.mdc
@@ -2381,11 +2444,142 @@ Use **@rust** when working on Rust or Tauri code.
 This rule references:
 
 - **Rust + Tauri**: `.cursor/rules/rust/rust-tauri.mdc` — one-thing-per-file, module layout, SQL/prompt in separate files, Tauri command checklist (command file + lib.rs + permissions)
+- **Cross-platform**: `.cursor/rules/rust/crossplatform.mdc` — correct `#[cfg]` usage, platform imports, target-specific deps
+- **Pest grammars**: `.cursor/rules/rust/pest.mdc` — `.pest` authoring/debugging and atomic/silent rule guidance
+- **RON usage**: `.cursor/rules/rust/ron.mdc` — readable `.ron` and serde-based (de)serialization
+- **Lint triage**: `.cursor/rules/rust/linthunter.mdc` — classify clippy/compiler lint issues and false positives
 
 ## Short summary
 
 - One public function/type/trait per file; no inline SQL or prompts (use `include_str!()`).
 - New Tauri command: (1) command file, (2) register in `lib.rs`, (3) add to `commands.allow` in permissions.
+- Use `#[cfg]` (not `cfg!`) for platform-specific APIs and imports.
+```
+
+## rust/crossplatform.mdc
+
+```mdc
+---
+description: Cross-platform Rust conditional compilation
+globs: "*.rs,Cargo.toml"
+alwaysApply: false
+---
+
+# Cross-platform Rust
+
+## Goal
+
+Compile cleanly on supported targets (Windows/Linux/macOS) without cfg-related warnings/errors.
+
+## Rules
+
+- Use `#[cfg(...)]` for platform-specific code paths. Do not use `cfg!()` with platform-specific APIs.
+- Scope platform-specific imports inside the matching `#[cfg]` block or module.
+- Prefer target families (`unix`, `windows`) when behavior is family-wide.
+- Use `any()`, `all()`, `not()` predicates for readable conditions.
+- Keep platform implementations in separate modules with a unified public interface.
+- Keep Cargo target dependencies under `[target.'cfg(...)'.dependencies]`.
+
+## Common pitfalls
+
+- `cfg!()` still type-checks all branches; this breaks with `std::os::windows::*` imports on Unix.
+- Hiding conditional compilation issues with `#[allow(unused_imports)]`.
+- Over-specific predicates when a family predicate is enough.
+
+## Validation
+
+- Check cfg values with `rustc --print=cfg` (or a specific `--target`).
+- Run formatting/lints/tests on relevant targets in CI when possible.
+```
+
+## rust/linthunter.mdc
+
+```mdc
+---
+description: Rust lint triage and false-positive analysis
+globs: "*.rs"
+alwaysApply: false
+---
+
+# Rust Lint Triage
+
+## Goal
+
+Decide whether a lint is valid, likely false-positive, or uncertain.
+
+## Workflow
+
+1. Capture lint name, location, message, and local snippet.
+2. Trace related moves/borrows/clones across nearby scopes.
+3. Check missing imports/traits and macro expansion context.
+4. Classify: valid, likely false-positive, or uncertain.
+5. Recommend action:
+   - refactor to satisfy lint
+   - local `#[allow(...)]` with justification
+   - global allow only with strong project-level reason
+
+## Notes
+
+- Prefer fixing root causes over suppressing lints.
+- Keep suppressions narrow and documented.
+```
+
+## rust/pest.mdc
+
+```mdc
+---
+description: Pest grammar authoring and debugging
+globs: "*.pest,*.rs"
+alwaysApply: false
+---
+
+# Pest Grammar Guidance
+
+## Scope
+
+Use when editing `.pest` grammars or Rust parser code based on Pest.
+
+## Rules
+
+- Keep grammar changes small and focused; prefer minimal diffs.
+- When debugging parse issues, point to the exact rule and propose 1-3 fixes.
+- Use silent rules (`_ {}`) to reduce noisy parse trees when needed.
+- Use atomic (`@{}`) or compound-atomic (`${}`) rules for ambiguity/perf hotspots.
+- Keep rule ordering intentional (most-specific first).
+- Add minimal parser tests (`parses_to!` or small `Parser::parse()` assertions).
+
+## Pitfalls
+
+- Missing `WHITESPACE`/`COMMENT` silent rules when grammar expects spacing/comments.
+- Left-recursive or ambiguous patterns causing heavy backtracking.
+```
+
+## rust/ron.mdc
+
+```mdc
+---
+description: RON (Rusty Object Notation) usage
+globs: "*.ron,*.rs"
+alwaysApply: false
+---
+
+# RON Guidance
+
+## Scope
+
+Use when editing `.ron` files or Rust code that serializes/deserializes RON.
+
+## Rules
+
+- Keep `.ron` human-readable (trailing commas, concise comments where helpful).
+- Prefer raw strings (`r#"..."#`) in Rust for multiline or escaped RON payloads.
+- Prefer `serde` derives for domain types.
+- Surface parse/serialize errors with context; avoid silent fallbacks.
+
+## Typical APIs
+
+- Deserialize: `ron::de::from_str::<T>(...)`
+- Serialize: `ron::ser::to_string(...)`
 ```
 
 ## rust/rust-tauri.mdc

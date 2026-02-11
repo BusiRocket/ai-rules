@@ -18,16 +18,22 @@ A reusable set of [Cursor rules](https://docs.cursor.com/context/rules-for-ai) o
 
 ## Requirements
 
-- [Cursor](https://cursor.com) (or any editor that supports Cursor-style `.cursor/rules`).
+- [Cursor](https://cursor.com) (for `.cursor/rules`)
+- Claude Code (for `CLAUDE.md`)
+- Codex (for `AGENTS.md`)
 
 ---
 
 ## Global setup (symlink)
 
-To use these rules in all projects, clone the repo and symlink `.cursor/rules` into your Cursor config:
+Rules now live in `rules/` and are compiled into tool-specific outputs.
+
+To use with Cursor globally, compile first and symlink generated `.cursor/rules`:
 
 ```bash
 git clone https://github.com/BusiRocket/ai-rules.git
+cd ai-rules
+pnpm rules:compile
 ln -s "$(pwd)/ai-rules/.cursor/rules" ~/.cursor/rules
 ```
 
@@ -43,18 +49,25 @@ Cursor will then load these rules globally. To use rules per project instead, se
 
 ## Quick start
 
-1. **Copy the rules into your repo:**
+1. **Edit source rules** in `rules/`.
+2. **Compile outputs**:
 
    ```bash
-   git clone https://github.com/BusiRocket/ai-rules.git /tmp/ai-rules
-   cp -r /tmp/ai-rules/.cursor/rules .cursor/
+   pnpm rules:compile
    ```
 
-   Or copy the `.cursor/rules` folder from this repo into your project root so you have `.cursor/rules/` with all `.mdc` files.
+   This generates:
+   - `.cursor/rules/**` for Cursor
+   - `CLAUDE.md` for Claude Code
+   - `AGENTS.md` for Codex
 
-2. **Optional — format rules:** from this repo, run `pnpm format` (Prettier and deps are already installed).
+3. **Optional — validate generated outputs**:
 
-3. **Use umbrella rules in Cursor** when you want one rule that pulls in several:
+   ```bash
+   pnpm rules:check
+   ```
+
+4. **Use umbrella rules in Cursor** when you want one rule that pulls in several:
    - **@core** — project, general, boundaries, naming, anti-patterns
    - **@react** — React architecture, hooks, state, accessibility, forms, performance, security
    - **@nextjs** — App Router architecture, route handlers, data fetching, server actions, performance, error handling
@@ -75,38 +88,25 @@ Cursor will then load these rules globally. To use rules per project instead, se
 
 ## Folder layout
 
-| Folder          | Purpose                                                                    |
-| --------------- | -------------------------------------------------------------------------- |
-| `core/`         | Project guidelines, general engineering, boundaries, naming, anti-patterns |
-| `typescript/`   | TypeScript standards, type conventions, refactoring, post-change checks    |
-| `javascript/`   | JavaScript/TypeScript domain rules (extensions, QA, RN, Shopify, web)      |
-| `php/`          | PHP general standards + Laravel, WordPress, Drupal                         |
-| `nextjs/`       | App Router, route handlers, API response shapes                            |
-| `react/`        | React architecture, components, hooks, state (e.g. Zustand)                |
-| `api/`          | Validation at boundaries                                                   |
-| `styling/`      | Styling rules (Tailwind split by concepts under `styling/tailwind/`)       |
-| `backend/`      | services vs utils, Supabase (when used)                                    |
-| `refactor/`     | @file refactor workflow                                                    |
-| `rust/`         | Rust + Tauri (when used)                                                   |
-| `bash/`         | Bash/Shell standards and @file refactor for `.sh`                          |
-| `python/`       | Python schema-driven development and UV                                    |
-| `n8n/`          | n8n workflow design and MCP tools                                          |
-| `deploy/`       | Agent (Sonnet) guidelines for deploy flows                                 |
-| `vite/`         | Vite runtime safety (no Node globals in browser bundles)                   |
-| `integrations/` | Integrations (e.g. Staffbase)                                              |
+| Folder           | Purpose                              |
+| ---------------- | ------------------------------------ |
+| `rules/`         | Source of truth for all `.mdc` rules |
+| `.cursor/rules/` | Generated rules for Cursor           |
+| `CLAUDE.md`      | Generated bundle for Claude Code     |
+| `AGENTS.md`      | Generated bundle for Codex           |
 
 ---
 
 ## References inside rules
 
-Rules reference other rules by path (e.g. `.cursor/rules/nextjs/route-handlers.mdc`). Do not copy long content into multiple files; reference the single source so rules stay short and in sync.
+Rules reference other rules by path (e.g. `.cursor/rules/nextjs/route-handlers.mdc`). Keep references target-compatible and avoid duplicating content.
 
 ---
 
 ## Customization
 
-- **Rename or remove domains** — Delete or rename folders under `.cursor/rules/` and update any umbrella rule files (`core.mdc`, `frontend.mdc`, `api.mdc`, etc.) that point at them.
-- **Add your own rules** — Add new `.mdc` files under `.cursor/rules/` (and optionally new umbrella entries).
+- **Rename or remove domains** — Delete or rename folders under `rules/` and update umbrella files (`core.mdc`, `frontend.mdc`, `api.mdc`, etc.) that point at them.
+- **Add your own rules** — Add new `.mdc` files under `rules/` (and optionally new umbrella entries).
 - **Adjust strictness** — Edit the rule files to loosen or tighten constraints (e.g. file length, export count) to match your team.
 
 ---
@@ -115,10 +115,12 @@ Rules reference other rules by path (e.g. `.cursor/rules/nextjs/route-handlers.m
 
 When working inside this repository:
 
-| Script              | Description                           |
-| ------------------- | ------------------------------------- |
-| `pnpm format`       | Format all `.mdc` rules with Prettier |
-| `pnpm format:check` | Check that rules are formatted (CI)   |
+| Script               | Description                            |
+| -------------------- | -------------------------------------- |
+| `pnpm rules:compile` | Compile rules for Cursor/Claude/Codex  |
+| `pnpm rules:check`   | Validate generated outputs are current |
+| `pnpm format`        | Format all `.mdc` rules with Prettier  |
+| `pnpm format:check`  | Check that rules are formatted (CI)    |
 
 ---
 

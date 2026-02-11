@@ -4,11 +4,13 @@
   "private": true,
   "description": "Cursor rules template - reusable project rules",
   "scripts": {
-    "format": "prettier --write .cursor/rules/**/*.mdc && prettier --write README.md",
-    "format:check": "prettier --check .cursor/rules/**/*.mdc && prettier --check README.md"
+    "rules:compile": "node scripts/compile-rules.mjs",
+    "rules:check": "node scripts/compile-rules.mjs --check",
+    "format": "prettier --write rules/**/*.mdc && prettier --write scripts/compile-rules.mjs README.md",
+    "format:check": "prettier --check rules/**/*.mdc && prettier --check scripts/compile-rules.mjs README.md"
   },
   "devDependencies": {
     "prettier": "^3.8.1"
   },
-  "packageManager": "pnpm@10.29.1"
+  "packageManager": "pnpm@10.29.3"
 }

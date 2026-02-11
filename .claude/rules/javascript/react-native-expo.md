@@ -13,6 +13,7 @@ paths:
 - Use functional components and hooks.
 - Prefer local state by default; promote to global state only when needed.
 - For complex transitions, prefer reducer-style state handling.
+- For cross-platform navigation layers, keep web/native route contracts explicit (e.g. Solito patterns when used).
 
 ## Performance
 
@@ -24,3 +25,4 @@ paths:
 
 - Plan OTA update safety and rollback strategy when using EAS Updates.
 - Handle offline/fetch failures with explicit fallback states.
+- Keep localization consistent across platforms (`expo-localization` + i18n stack when present).

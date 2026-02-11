@@ -27,6 +27,8 @@ This rule references:
 - **Bootstrap** (optional): `.cursor/rules/styling/bootstrap.mdc` — responsive grid/components/utilities with accessibility
 - **HTMX** (optional): `.cursor/rules/javascript/htmx.mdc` — server-driven HTML fragments and declarative interactions
 - **Vite runtime** (when using Vite): `.cursor/rules/vite/runtime-safety.mdc` — no Node globals in browser bundles; use `import.meta.env`
+- **Next.js + Supabase** (optional): `.cursor/rules/integrations/nextjs-supabase.mdc` — auth/RLS and boundary-safe data access
+- **Stripe subscriptions** (optional): `.cursor/rules/integrations/stripe-subscriptions.mdc` — webhook safety and subscription sync
 
 ## Short summary
 

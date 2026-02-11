@@ -19,6 +19,7 @@ Optimize for agent context by keeping **many small, focused files** and explicit
   - PHP: `@php`
   - Rust/Tauri: `@rust`
   - Go: `@go`
+  - Monorepo/Turbo: `@monorepo`
   - Bash/Shell: `@bash`
 
 ## Agent Defaults

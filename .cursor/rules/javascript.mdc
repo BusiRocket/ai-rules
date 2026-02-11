@@ -14,6 +14,7 @@ This rule references:
 - **General JS/TS**: `.cursor/rules/javascript/general.mdc`
 - **Chrome Extensions MV3**: `.cursor/rules/javascript/chrome-extension-mv3.mdc`
 - **Modern web apps**: `.cursor/rules/javascript/web-apps.mdc`
+- **SvelteKit** (optional): `.cursor/rules/javascript/sveltekit.mdc`
 - **React Native/Expo**: `.cursor/rules/javascript/react-native-expo.mdc`
 - **Playwright QA**: `.cursor/rules/javascript/playwright-qa.mdc`
 - **Shopify theme JS**: `.cursor/rules/javascript/shopify-theme.mdc`

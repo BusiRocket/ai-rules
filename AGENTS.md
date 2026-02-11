@@ -511,6 +511,7 @@ Optimize for agent context by keeping **many small, focused files** and explicit
   - PHP: `@php`
   - Rust/Tauri: `@rust`
   - Go: `@go`
+  - Monorepo/Turbo: `@monorepo`
   - Bash/Shell: `@bash`
 
 ## Agent Defaults
@@ -833,6 +834,8 @@ This rule references:
 - **Bootstrap** (optional): `.cursor/rules/styling/bootstrap.mdc` — responsive grid/components/utilities with accessibility
 - **HTMX** (optional): `.cursor/rules/javascript/htmx.mdc` — server-driven HTML fragments and declarative interactions
 - **Vite runtime** (when using Vite): `.cursor/rules/vite/runtime-safety.mdc` — no Node globals in browser bundles; use `import.meta.env`
+- **Next.js + Supabase** (optional): `.cursor/rules/integrations/nextjs-supabase.mdc` — auth/RLS and boundary-safe data access
+- **Stripe subscriptions** (optional): `.cursor/rules/integrations/stripe-subscriptions.mdc` — webhook safety and subscription sync
 
 ## Short summary
 
@@ -915,6 +918,41 @@ alwaysApply: true
 - Use table-driven unit tests and isolate external dependencies with mocks/fakes.
 - Separate fast unit tests from integration/E2E suites.
 - Enforce `go test`, `go fmt`, `goimports`, and `golangci-lint` in CI.
+```
+
+## integrations/nextjs-supabase.mdc
+
+```mdc
+---
+description: Next.js + Supabase integration standards (auth, RLS, typed boundaries)
+globs: "app/**/*,services/**/*,supabase/**/*,middleware.ts"
+alwaysApply: false
+---
+
+# Next.js + Supabase Standards
+
+## Security and auth
+
+- Keep service-role keys server-side only; never expose them to client bundles.
+- Enforce Row Level Security (RLS) for user-scoped data access.
+- Keep authorization checks server-side even if client guards exist.
+
+## Data boundaries
+
+- Encapsulate Supabase queries in service modules; keep UI/routes thin.
+- Validate external input before writes/updates.
+- Prefer typed query helpers/contracts to reduce runtime shape drift.
+
+## Reliability and performance
+
+- Keep auth/session flows explicit and resilient across SSR/client transitions.
+- Use pagination and selective fields for large datasets.
+- Add clear error mapping and user-friendly failure messages at boundaries.
+
+## Realtime and storage
+
+- Use realtime subscriptions intentionally; unsubscribe/cleanup to avoid leaks.
+- Validate uploads and enforce storage access policies.
 ```
 
 ## integrations/staffbase.mdc
@@ -1001,6 +1039,41 @@ Use this rule when working on projects that integrate with **Staffbase** (widget
 - Avoid leaking stack traces or internal details to end users.
 ```
 
+## integrations/stripe-subscriptions.mdc
+
+```mdc
+---
+description: Stripe subscription integration standards (webhooks, portal, sync)
+globs: "app/**/*,services/**/*,webhooks/**/*,api/**/*"
+alwaysApply: false
+---
+
+# Stripe Subscriptions Standards
+
+## Core flows
+
+- Keep checkout/subscription creation server-side.
+- Use Stripe Customer Portal for subscription self-management when suitable.
+- Keep subscription state synchronized with application user/account records.
+
+## Webhooks
+
+- Verify webhook signatures before processing events.
+- Make webhook handlers idempotent and retry-safe.
+- Handle key subscription events (`created`, `updated`, `deleted`, invoice outcomes).
+
+## Security and reliability
+
+- Store Stripe secrets in secure env vars only.
+- Never trust client-reported payment state; trust Stripe events/server checks.
+- Log actionable billing context without leaking sensitive payment data.
+
+## Data consistency
+
+- Use transactions/locking where needed to prevent duplicate or conflicting updates.
+- Keep a clear mapping model: app user <-> Stripe customer <-> active subscriptions.
+```
+
 ## javascript.mdc
 
 ```mdc
@@ -1020,6 +1093,7 @@ This rule references:
 - **General JS/TS**: `.cursor/rules/javascript/general.mdc`
 - **Chrome Extensions MV3**: `.cursor/rules/javascript/chrome-extension-mv3.mdc`
 - **Modern web apps**: `.cursor/rules/javascript/web-apps.mdc`
+- **SvelteKit** (optional): `.cursor/rules/javascript/sveltekit.mdc`
 - **React Native/Expo**: `.cursor/rules/javascript/react-native-expo.mdc`
 - **Playwright QA**: `.cursor/rules/javascript/playwright-qa.mdc`
 - **Shopify theme JS**: `.cursor/rules/javascript/shopify-theme.mdc`
@@ -1213,6 +1287,7 @@ alwaysApply: false
 - Use functional components and hooks.
 - Prefer local state by default; promote to global state only when needed.
 - For complex transitions, prefer reducer-style state handling.
+- For cross-platform navigation layers, keep web/native route contracts explicit (e.g. Solito patterns when used).
 
 ## Performance
 
@@ -1224,6 +1299,7 @@ alwaysApply: false
 
 - Plan OTA update safety and rollback strategy when using EAS Updates.
 - Handle offline/fetch failures with explicit fallback states.
+- Keep localization consistent across platforms (`expo-localization` + i18n stack when present).
 ```
 
 ## javascript/shopify-theme.mdc
@@ -1262,6 +1338,36 @@ alwaysApply: false
 - Preserve focus and keyboard accessibility in interactive components.
 ```
 
+## javascript/sveltekit.mdc
+
+```mdc
+---
+description: SvelteKit standards (SSR-first, server boundaries, progressive enhancement)
+globs: "src/**/*.svelte,src/**/*.ts,src/routes/**/*,svelte.config.*"
+alwaysApply: false
+---
+
+# SvelteKit Standards
+
+## Rendering and routing
+
+- Prefer SSR/server load functions by default; opt into client behavior intentionally.
+- Keep route-level loading and error states explicit.
+- Use semantic HTML and progressive enhancement for forms/interactions.
+
+## Data boundaries
+
+- Keep sensitive logic and secrets in server-only modules/routes.
+- Validate external input at endpoint/action boundaries.
+- Keep client payloads minimal and avoid over-fetching.
+
+## State and structure
+
+- Use stores for shared cross-route state; keep local state local.
+- Keep components small and focused; extract reusable logic to utilities.
+- Keep file/folder naming consistent and predictable across routes/components.
+```
+
 ## javascript/web-apps.mdc
 
 ```mdc
@@ -1295,6 +1401,60 @@ alwaysApply: false
 
 - Measure before tuning.
 - Use memoization (`useMemo`/`useCallback`) only when beneficial.
+```
+
+## monorepo.mdc
+
+```mdc
+---
+description: "Umbrella: Monorepo standards (Turbo workspaces, package boundaries)"
+globs: "turbo.json,package.json,pnpm-workspace.yaml,apps/**/*,packages/**/*"
+alwaysApply: false
+---
+
+# Monorepo Rules (umbrella)
+
+Use **@monorepo** when working on workspace structure, package boundaries, or Turbo pipelines.
+
+This rule references:
+
+- **Turbo workspaces**: `.cursor/rules/monorepo/turbo.mdc` - boundaries, task pipelines, shared config
+
+## Short summary
+
+- Keep package boundaries explicit and avoid cross-app leakage.
+- Centralize shared config and scripts where it reduces duplication.
+- Keep Turbo tasks deterministic and cache-friendly.
+```
+
+## monorepo/turbo.mdc
+
+```mdc
+---
+description: Turbo monorepo standards (apps/packages boundaries and pipeline discipline)
+globs: "turbo.json,package.json,pnpm-workspace.yaml,apps/**/*,packages/**/*"
+alwaysApply: false
+---
+
+# Turbo Monorepo Standards
+
+## Boundaries
+
+- Keep app-specific code in `apps/*`; move reusable code to `packages/*`.
+- Avoid importing app internals from other apps directly.
+- Publish shared contracts/types from packages instead of duplicating.
+
+## Pipeline and tasks
+
+- Keep Turbo tasks deterministic and side-effect aware for caching.
+- Ensure task inputs/outputs are declared correctly for reliable remote/local cache hits.
+- Prefer shared scripts/config at workspace root when behavior is common.
+
+## Dependency hygiene
+
+- Keep package dependencies explicit; avoid hidden transitive reliance.
+- Version-lock critical toolchain dependencies for reproducible CI.
+- Add lightweight package-level checks/tests where they prevent regressions early.
 ```
 
 ## n8n.mdc

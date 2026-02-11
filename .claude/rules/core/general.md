@@ -12,6 +12,7 @@ Optimize for agent context by keeping **many small, focused files** and explicit
 - For other languages, use their umbrellas:
   - PHP: `@php`
   - Rust/Tauri: `@rust`
+  - Go: `@go`
   - Bash/Shell: `@bash`
 
 ## Agent Defaults

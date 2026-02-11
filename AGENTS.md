@@ -510,6 +510,7 @@ Optimize for agent context by keeping **many small, focused files** and explicit
 - For other languages, use their umbrellas:
   - PHP: `@php`
   - Rust/Tauri: `@rust`
+  - Go: `@go`
   - Bash/Shell: `@bash`
 
 ## Agent Defaults
@@ -829,6 +830,8 @@ This rule references:
 - **Error/observability**: `.cursor/rules/nextjs/error-observability.mdc` — boundaries and logging context
 - **API responses**: `.cursor/rules/nextjs/api-response-shapes.mdc` — JSON shapes, status codes
 - **Tailwind umbrella**: `.cursor/rules/tailwind.mdc` — Tailwind v4 standards split by concept
+- **Bootstrap** (optional): `.cursor/rules/styling/bootstrap.mdc` — responsive grid/components/utilities with accessibility
+- **HTMX** (optional): `.cursor/rules/javascript/htmx.mdc` — server-driven HTML fragments and declarative interactions
 - **Vite runtime** (when using Vite): `.cursor/rules/vite/runtime-safety.mdc` — no Node globals in browser bundles; use `import.meta.env`
 
 ## Short summary
@@ -836,6 +839,82 @@ This rule references:
 - Server Components by default; `'use client'` only when needed.
 - One component/hook per file; types in `types/`; helpers in `utils/`.
 - Prefer Tailwind in `className`; avoid large custom CSS.
+```
+
+## go.mdc
+
+```mdc
+---
+description: "Umbrella: Go backend and microservices standards"
+globs: "*.go,go.mod,go.sum"
+alwaysApply: false
+---
+
+# Go Rules (umbrella)
+
+Use **@go** when working on Go codebases.
+
+This rule references:
+
+- **Go microservices**: `.cursor/rules/go/microservices.mdc` - clean architecture, interfaces, observability, resilience, testing
+
+## Short summary
+
+- Keep handlers thin and domain logic isolated.
+- Depend on interfaces, use explicit DI, avoid global mutable state.
+- Enforce context propagation, explicit error handling, and observability.
+```
+
+## go/microservices.mdc
+
+```mdc
+---
+description: Go microservices standards (clean architecture, resilience, observability)
+globs: "*.go,go.mod,go.sum"
+alwaysApply: true
+---
+
+# Go Microservices Standards
+
+## Architecture
+
+- Prefer clean architecture boundaries: transport -> use case -> repository -> domain.
+- Keep framework details at the edges; keep domain logic framework-agnostic.
+- Program to interfaces for dependencies and external boundaries.
+- Prefer small, purpose-specific interfaces and explicit constructor injection.
+
+## Code quality
+
+- Keep functions short and single-purpose.
+- Handle errors explicitly and wrap with context (`fmt.Errorf("...: %w", err)`).
+- Avoid global mutable state; use dependency injection and config structs.
+- Prefer composition over inheritance-style abstractions.
+
+## Concurrency and context
+
+- Propagate `context.Context` through request and downstream calls.
+- Honor cancellation/timeouts on I/O boundaries.
+- Use goroutines safely; protect shared state with channels or sync primitives.
+- Ensure resources are closed deterministically (`defer`).
+
+## Resilience and security
+
+- Validate/sanitize external input at boundaries.
+- Use timeouts, retries, and bounded backoff for external calls where safe.
+- Add rate limiting/circuit breaking on abuse-prone or fragile boundaries.
+- Keep authn/authz explicit and least-privilege by default.
+
+## Observability
+
+- Add structured logs with request/trace correlation ids.
+- Instrument critical paths (HTTP/gRPC, DB, external APIs) with metrics/traces.
+- Track core signals: latency, throughput, error rate, saturation.
+
+## Testing and tooling
+
+- Use table-driven unit tests and isolate external dependencies with mocks/fakes.
+- Separate fast unit tests from integration/E2E suites.
+- Enforce `go test`, `go fmt`, `goimports`, and `golangci-lint` in CI.
 ```
 
 ## integrations/staffbase.mdc
@@ -1046,6 +1125,43 @@ alwaysApply: true
 - Apply least privilege for permissions, data exposure, and API surface.
 ```
 
+## javascript/htmx.mdc
+
+```mdc
+---
+description: HTMX standards (server-driven interactivity with minimal JS)
+globs: "*.html,*.php,*.blade.php,*.twig,*.njk"
+alwaysApply: false
+---
+
+# HTMX Standards
+
+## Interaction model
+
+- Prefer declarative HTMX attributes (`hx-get`, `hx-post`, `hx-put`, `hx-delete`) over custom JS when sufficient.
+- Return minimal HTML fragments from server endpoints for targeted updates.
+- Use `hx-target` and `hx-swap` intentionally to control DOM replacement semantics.
+- Use `hx-trigger` explicitly for non-default interaction timing.
+
+## UX and safety
+
+- Keep server-side validation authoritative; client feedback should mirror server truth.
+- Return proper HTTP status codes and clear error fragments for failed interactions.
+- Use `hx-confirm` for destructive operations.
+- Use `hx-push-url` only when the interaction meaningfully changes navigation state.
+
+## Maintainability
+
+- Keep fragment templates modular and reusable.
+- Avoid coupling HTMX endpoints to full-page templates when fragment endpoints are sufficient.
+- Document endpoint contract expectations (input, fragment output, error shape).
+
+## Performance
+
+- Keep fragment payloads small and cache where it helps.
+- Avoid unnecessary full-region swaps when targeted updates are possible.
+```
+
 ## javascript/playwright-qa.mdc
 
 ```mdc
@@ -1062,18 +1178,23 @@ alwaysApply: false
 - Use isolated tests and deterministic fixtures.
 - Prefer semantic locators: `getByRole`, `getByLabel`, `getByText`,
   `getByTestId`.
+- Prefer `getBy*` and role-based locators over generic `page.locator(...)` selectors.
 - Avoid fixed sleeps/timeouts; wait on explicit conditions.
+- Prefer web-first assertions (`toBeVisible`, `toHaveText`, etc.) over manual waits.
 
 ## Maintainability
 
 - Use helper utilities for repeated setup/flows.
+- Use `test.beforeEach`/`test.afterEach` to enforce clean setup/teardown.
 - Follow Arrange-Act-Assert structure.
 - Prioritize critical user journeys for coverage.
+- Keep tests parallel-safe (no shared mutable test state).
 
 ## Reliability
 
 - Keep assertions explicit and user-visible.
 - Avoid brittle selectors tied to implementation details.
+- Keep config concerns in `playwright.config.*` (projects/devices/baseURL/retries).
 ```
 
 ## javascript/react-native-expo.mdc
@@ -1633,6 +1754,8 @@ This rule references:
 
 - **General PHP**: `.cursor/rules/php/general.mdc` - baseline language, architecture, security, testing
 - **Laravel**: `.cursor/rules/php/laravel.mdc` - Laravel service/container, validation, queues, policies
+- **Laravel + Livewire** (optional): `.cursor/rules/php/laravel-livewire.mdc` - Livewire components, UX feedback, component boundaries
+- **Laravel + Vue** (optional): `.cursor/rules/php/laravel-vue.mdc` - Inertia/SPA boundaries, API contracts, frontend-state discipline
 - **WordPress**: `.cursor/rules/php/wordpress.mdc` - WP APIs, nonces/capabilities, escaping/sanitization
 - **Drupal**: `.cursor/rules/php/drupal.mdc` - Drupal services, Form API, cache metadata, module patterns
 
@@ -1750,6 +1873,77 @@ alwaysApply: true
 - Prefer fixtures/factories over coupling to production-like data dumps.
 ```
 
+## php/laravel-livewire.mdc
+
+```mdc
+---
+description: Laravel + Livewire standards (component boundaries and UX state)
+globs: "app/Livewire/**/*.php,resources/views/livewire/**/*.blade.php,resources/views/**/*.blade.php"
+alwaysApply: false
+---
+
+# Laravel + Livewire
+
+## Component architecture
+
+- Keep Livewire components focused and small; extract domain logic to services/actions.
+- Use Livewire for server-driven interactivity; avoid duplicating the same state logic in Alpine and Livewire.
+- Prefer explicit component names and predictable public properties/actions.
+
+## Validation and state
+
+- Validate inputs at component/action boundaries (Form Requests or Livewire validation rules).
+- Use loading/disabled states (`wire:loading`, `wire:target`) for async actions.
+- Keep side effects explicit; avoid hidden state mutation across unrelated hooks.
+
+## Security and rendering
+
+- Authorize mutations with Policies/Gates in component actions.
+- Treat component input as untrusted; sanitize/validate before persistence.
+- Escape output by default in Blade; only render raw HTML when explicitly sanitized.
+
+## Testing
+
+- Add focused Livewire component tests for critical UI flows.
+- Keep feature tests for end-to-end behavior across HTTP + Livewire boundaries.
+```
+
+## php/laravel-vue.mdc
+
+```mdc
+---
+description: Laravel + Vue standards (API boundaries, SPA contracts, and state)
+globs: "app/**/*.php,routes/**/*.php,resources/js/**/*.{js,ts,vue}"
+alwaysApply: false
+---
+
+# Laravel + Vue
+
+## Boundary design
+
+- Keep backend/frontend boundary explicit: controllers/resources define stable contracts.
+- Prefer API Resources (or Inertia props contracts) over ad-hoc array payloads.
+- Version public API contracts when backward compatibility matters.
+
+## Frontend integration
+
+- Keep Vue components presentational when possible; move data orchestration to composables/stores.
+- Avoid duplicating validation rules inconsistently between frontend and backend.
+- Use route-level code splitting and lazy loading for heavy pages/features.
+
+## Security and auth
+
+- Keep sensitive checks on server-side policies/gates.
+- Use Laravel auth stack consistently (Sanctum/Passport/session) and avoid custom token flows unless justified.
+- Keep CSRF protection enabled for state-changing flows.
+
+## Data and performance
+
+- Prevent N+1 on backend and over-fetching on frontend.
+- Cache expensive backend queries intentionally and document invalidation.
+- Paginate large collections and stream/chunk heavy exports/jobs.
+```
+
 ## php/laravel.mdc
 
 ```mdc
@@ -1772,6 +1966,7 @@ alwaysApply: true
 - Keep business logic in services/actions/domain classes.
 - Use constructor DI/method injection over static facades in core business paths.
 - Use repositories only when persistence complexity justifies the extra layer.
+- Keep controllers and services cohesive; split classes that accumulate unrelated responsibilities.
 
 ## Framework-native primitives
 
@@ -1787,6 +1982,20 @@ alwaysApply: true
 - Use Query Builder when complex SQL is clearer than Eloquent chains.
 - Use `DB::transaction()` for multi-step data integrity.
 - Keep migrations reversible and indexed intentionally.
+- Use pagination helpers for list endpoints (`paginate`, `cursorPaginate`) instead of ad-hoc paging.
+
+## API and contracts
+
+- For public APIs, define explicit versioning strategy (path/header) and keep it consistent.
+- Use API Resources/Transformers as the boundary contract; avoid leaking internal model structure.
+- Normalize expected failures to stable response shapes and status codes.
+
+## Performance and operations
+
+- Use caching intentionally (`Cache::remember`, tags/locks where appropriate); document invalidation strategy.
+- Move long-running or retryable work to jobs/queues; keep web requests fast.
+- Use Scheduler for recurring tasks; keep schedule definitions deterministic and observable.
+- Favor eager loading and query profiling to avoid N+1 issues.
 
 ## Security and reliability
 
@@ -1794,6 +2003,13 @@ alwaysApply: true
 - Rate-limit public endpoints where abuse is possible.
 - Never expose secrets in responses/logs.
 - Use signed URLs for sensitive temporary links where appropriate.
+- Prefer built-in auth/authz primitives (Sanctum/Passport/Policies/Gates) over custom security plumbing.
+
+## Conventions
+
+- Follow Laravel naming conventions: singular Models (e.g. `User`), intent-based controllers (e.g. `UserController`).
+- Use `snake_case` for DB columns and config keys; follow project convention for PHP variables/methods.
+- Preserve existing PHPDoc/comments unless they are inaccurate; update instead of deleting by default.
 
 ## Testing
 
@@ -1872,10 +2088,101 @@ Use **@python** when working on Python code.
 This rule references:
 
 - **Python standards**: `.cursor/rules/python/python.mdc` — schema-first, UV, type hints, structure, testing, packaging
+- **Django** (optional): `.cursor/rules/python/django.mdc` — app structure, ORM-first, MVT boundaries, security
+- **Django REST API** (optional): `.cursor/rules/python/django-rest-api.mdc` — DRF serializers/views, versioning, pagination, error shape
 
 ## Short summary
 
 - Schema first; UV for venv and packages (uv venv, uv pip sync/compile); strict pinning; type hints and validation.
+```
+
+## python/django-rest-api.mdc
+
+```mdc
+---
+description: Django REST API standards (DRF design, contracts, authz, pagination)
+globs: "**/api/**/*.py,**/serializers.py,**/views.py,**/permissions.py,**/urls.py"
+alwaysApply: false
+---
+
+# Django REST API Standards
+
+## API design
+
+- Follow RESTful semantics with clear method/status usage.
+- Keep API versioning explicit and consistent (prefer URL-based versioning).
+- Keep response contracts stable and documented.
+- Use standardized success/error response shapes across endpoints.
+
+## DRF layers
+
+- Use serializers for validation + transformation, not just output formatting.
+- Keep API views/viewsets focused on transport orchestration.
+- Move domain rules to models/managers/services instead of bloating views.
+- Use reusable permissions and validators for shared rules.
+
+## Security
+
+- Enforce authentication + authorization for every protected endpoint.
+- Prefer framework-native auth stacks (Session/Auth headers/JWT libs already used).
+- Validate/sanitize external input at boundaries; never trust client payloads.
+
+## Performance and operability
+
+- Apply pagination consistently for list endpoints.
+- Prevent N+1 and monitor query counts in API hot paths.
+- Use caching for expensive read paths with clear invalidation strategy.
+- Add structured logs for request id, latency, status, and error context.
+
+## Error handling
+
+- Use centralized exception handling for predictable API error shape.
+- Map validation/auth/domain errors to appropriate HTTP status codes.
+```
+
+## python/django.mdc
+
+```mdc
+---
+description: Django standards (modular apps, ORM-first, security and performance)
+globs: "*.py,**/templates/**/*.html"
+alwaysApply: false
+---
+
+# Django Standards
+
+## Architecture
+
+- Organize code by Django apps with clear boundaries and reusable modules.
+- Keep views thin; move business logic to models/managers/services.
+- Use MVT boundaries consistently (Model-View-Template).
+- Prefer CBVs for complex flows and FBVs for small/simple endpoints.
+
+## Data and ORM
+
+- Prefer Django ORM over raw SQL; use raw SQL only for proven performance cases.
+- Prevent N+1 queries with `select_related` and `prefetch_related`.
+- Add explicit DB indexes for high-frequency query/filter fields.
+- Use `transaction.atomic()` for multi-step data integrity operations.
+
+## Validation and forms
+
+- Use Django forms/model forms for form workflows and validation.
+- Keep validation close to boundaries (forms/serializers/model validation).
+- Return actionable validation errors for users and clients.
+
+## Security and reliability
+
+- Keep CSRF/XSS/SQL injection protections enabled and verify template escaping.
+- Use Django auth framework and permission checks instead of custom auth plumbing.
+- Handle expected failures explicitly and log context without secrets.
+- Provide custom 404/500 error pages with safe, useful UX.
+
+## Performance
+
+- Use caching intentionally for frequently accessed data/views.
+- Offload long-running I/O tasks to async workers (Celery or equivalent).
+- Keep static/media handling production-ready (e.g., WhiteNoise/CDN strategy).
 ```
 
 ## python/python.mdc
@@ -2698,6 +3005,41 @@ If both exist, the compiler fails with: `failed to resolve mod 'foo': file for m
 ## Validation
 
 After meaningful changes, run the project's check script (e.g. `pnpm run check`, `npm run check`).
+```
+
+## styling/bootstrap.mdc
+
+```mdc
+---
+description: Bootstrap standards (grid, components, utilities, accessibility)
+globs: "*.html,*.php,*.blade.php,*.tsx,*.jsx,*.vue"
+alwaysApply: false
+---
+
+# Bootstrap Standards
+
+## Layout and components
+
+- Use Bootstrap grid (`container`, `row`, `col-*`) for responsive structure.
+- Prefer Bootstrap components/utilities over large custom CSS overrides.
+- Keep custom CSS minimal and focused on app-specific branding.
+- Use semantic HTML and appropriate ARIA attributes for component accessibility.
+
+## Forms and feedback
+
+- Use Bootstrap validation classes for clear, immediate form feedback.
+- Surface actionable errors with consistent alert/inline patterns.
+- Ensure labels, help text, and error text are programmatically associated.
+
+## Theming and customization
+
+- Prefer Sass variables/mixins for theming instead of ad-hoc overrides.
+- Keep style tokens centralized and consistent across components.
+
+## Performance
+
+- Include only required Bootstrap bundles/components when possible.
+- Optimize assets (images/fonts/scripts) and avoid redundant UI libraries.
 ```
 
 ## styling/tailwind/baseline.mdc

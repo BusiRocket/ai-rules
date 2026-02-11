@@ -12,6 +12,8 @@ This rule references:
 
 - **General PHP**: `.cursor/rules/php/general.mdc` - baseline language, architecture, security, testing
 - **Laravel**: `.cursor/rules/php/laravel.mdc` - Laravel service/container, validation, queues, policies
+- **Laravel + Livewire** (optional): `.cursor/rules/php/laravel-livewire.mdc` - Livewire components, UX feedback, component boundaries
+- **Laravel + Vue** (optional): `.cursor/rules/php/laravel-vue.mdc` - Inertia/SPA boundaries, API contracts, frontend-state discipline
 - **WordPress**: `.cursor/rules/php/wordpress.mdc` - WP APIs, nonces/capabilities, escaping/sanitization
 - **Drupal**: `.cursor/rules/php/drupal.mdc` - Drupal services, Form API, cache metadata, module patterns
 

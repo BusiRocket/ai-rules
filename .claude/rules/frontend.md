@@ -24,6 +24,8 @@ This rule references:
 - **Error/observability**: `.cursor/rules/nextjs/error-observability.mdc` — boundaries and logging context
 - **API responses**: `.cursor/rules/nextjs/api-response-shapes.mdc` — JSON shapes, status codes
 - **Tailwind umbrella**: `.cursor/rules/tailwind.mdc` — Tailwind v4 standards split by concept
+- **Bootstrap** (optional): `.cursor/rules/styling/bootstrap.mdc` — responsive grid/components/utilities with accessibility
+- **HTMX** (optional): `.cursor/rules/javascript/htmx.mdc` — server-driven HTML fragments and declarative interactions
 - **Vite runtime** (when using Vite): `.cursor/rules/vite/runtime-safety.mdc` — no Node globals in browser bundles; use `import.meta.env`
 
 ## Short summary

@@ -1,0 +1,16 @@
+---
+paths:
+  - "*.py"
+---
+
+# Python Rules (umbrella)
+
+Use **@python** when working on Python code.
+
+This rule references:
+
+- **Python standards**: `.cursor/rules/python/python.mdc` — schema-first, UV, type hints, structure, testing, packaging
+
+## Short summary
+
+- Schema first; UV for venv and packages (uv venv, uv pip sync/compile); strict pinning; type hints and validation.

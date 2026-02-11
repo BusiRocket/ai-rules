@@ -5,6 +5,7 @@ import path from "node:path"
 const ROOT = process.cwd()
 const SOURCE_DIR = path.join(ROOT, "rules")
 const CURSOR_DIR = path.join(ROOT, ".cursor", "rules")
+const CLAUDE_RULES_DIR = path.join(ROOT, ".claude", "rules")
 const CLAUDE_PATH = path.join(ROOT, "CLAUDE.md")
 const AGENTS_PATH = path.join(ROOT, "AGENTS.md")
 
@@ -38,6 +39,72 @@ const ensureDir = async (dir) => {
 
 const sha256 = (buffer) => createHash("sha256").update(buffer).digest("hex")
 
+const normalizeRel = (baseDir, filePath) =>
+  path.relative(baseDir, filePath).split(path.sep).join("/")
+
+const parseMdc = (content) => {
+  const trimmed = content.trimStart()
+  if (!trimmed.startsWith("---")) {
+    return { frontmatter: null, body: content.trimEnd() }
+  }
+
+  const lines = trimmed.split("\n")
+  if (lines[0] !== "---") {
+    return { frontmatter: null, body: content.trimEnd() }
+  }
+
+  let closingIndex = -1
+  for (let i = 1; i < lines.length; i += 1) {
+    if (lines[i] === "---") {
+      closingIndex = i
+      break
+    }
+  }
+
+  if (closingIndex === -1) {
+    return { frontmatter: null, body: content.trimEnd() }
+  }
+
+  const frontmatterLines = lines.slice(1, closingIndex)
+  const body = lines
+    .slice(closingIndex + 1)
+    .join("\n")
+    .trimStart()
+    .trimEnd()
+  const frontmatter = {}
+
+  for (const line of frontmatterLines) {
+    const idx = line.indexOf(":")
+    if (idx === -1) continue
+    const key = line.slice(0, idx).trim()
+    const value = line.slice(idx + 1).trim()
+    frontmatter[key] = value.replace(/^"(.*)"$/, "$1")
+  }
+
+  return { frontmatter, body }
+}
+
+const toClaudeRule = (content) => {
+  const { frontmatter, body } = parseMdc(content)
+
+  if (!frontmatter) {
+    return content.trimEnd()
+  }
+
+  const globs = (frontmatter.globs ?? "")
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean)
+    .filter((item) => item !== "*")
+
+  if (globs.length === 0) {
+    return body
+  }
+
+  const pathLines = globs.map((glob) => `  - "${glob}"`).join("\n")
+  return `---\npaths:\n${pathLines}\n---\n\n${body}`
+}
+
 const generateBundle = async (sourceFiles) => {
   const mdcFiles = sourceFiles
     .filter((filePath) => filePath.endsWith(".mdc"))
@@ -46,7 +113,7 @@ const generateBundle = async (sourceFiles) => {
   const sections = []
 
   for (const absPath of mdcFiles) {
-    const relativePath = path.relative(SOURCE_DIR, absPath).split(path.sep).join("/")
+    const relativePath = normalizeRel(SOURCE_DIR, absPath)
     const content = await fs.readFile(absPath, "utf8")
 
     sections.push(`## ${relativePath}\n\n\`\`\`mdc\n${content.trimEnd()}\n\`\`\``)
@@ -70,6 +137,25 @@ const syncCursorRules = async (sourceFiles) => {
     const targetPath = path.join(CURSOR_DIR, relativePath)
     await ensureDir(path.dirname(targetPath))
     await fs.copyFile(sourcePath, targetPath)
+  }
+}
+
+const syncClaudeRules = async (sourceFiles) => {
+  await fs.rm(CLAUDE_RULES_DIR, { recursive: true, force: true })
+  await ensureDir(CLAUDE_RULES_DIR)
+
+  const mdcFiles = sourceFiles
+    .filter((sourcePath) => sourcePath.endsWith(".mdc"))
+    .sort((a, b) => a.localeCompare(b))
+
+  for (const sourcePath of mdcFiles) {
+    const relativePath = normalizeRel(SOURCE_DIR, sourcePath).replace(/\.mdc$/, ".md")
+    const targetPath = path.join(CLAUDE_RULES_DIR, relativePath)
+    const sourceContent = await fs.readFile(sourcePath, "utf8")
+    const claudeContent = `${toClaudeRule(sourceContent)}\n`
+
+    await ensureDir(path.dirname(targetPath))
+    await fs.writeFile(targetPath, claudeContent, "utf8")
   }
 }
 
@@ -118,6 +204,54 @@ const checkCursorRules = async (sourceFiles) => {
   return errors
 }
 
+const checkClaudeRules = async (sourceFiles) => {
+  const expectedMap = new Map()
+  const mdcFiles = sourceFiles
+    .filter((sourcePath) => sourcePath.endsWith(".mdc"))
+    .sort((a, b) => a.localeCompare(b))
+
+  for (const sourcePath of mdcFiles) {
+    const rel = normalizeRel(SOURCE_DIR, sourcePath).replace(/\.mdc$/, ".md")
+    const sourceContent = await fs.readFile(sourcePath, "utf8")
+    expectedMap.set(rel, sha256(Buffer.from(`${toClaudeRule(sourceContent)}\n`)))
+  }
+
+  let actualFiles = []
+  try {
+    actualFiles = await listFiles(CLAUDE_RULES_DIR)
+  } catch {
+    return ["Missing generated directory: .claude/rules"]
+  }
+
+  const actualMap = new Map()
+  for (const actualPath of actualFiles) {
+    const rel = normalizeRel(CLAUDE_RULES_DIR, actualPath)
+    const content = await fs.readFile(actualPath)
+    actualMap.set(rel, sha256(content))
+  }
+
+  const errors = []
+
+  for (const [filePath, hash] of expectedMap.entries()) {
+    if (!actualMap.has(filePath)) {
+      errors.push(`Missing generated file: .claude/rules/${filePath}`)
+      continue
+    }
+
+    if (actualMap.get(filePath) !== hash) {
+      errors.push(`Outdated generated file: .claude/rules/${filePath}`)
+    }
+  }
+
+  for (const filePath of actualMap.keys()) {
+    if (!expectedMap.has(filePath)) {
+      errors.push(`Unexpected generated file: .claude/rules/${filePath}`)
+    }
+  }
+
+  return errors
+}
+
 const readIfExists = async (filePath) => {
   try {
     return await fs.readFile(filePath, "utf8")
@@ -142,7 +276,10 @@ const main = async () => {
   const nextAgents = renderAgents(bundle)
 
   if (checkOnly) {
-    const errors = await checkCursorRules(sourceFiles)
+    const errors = [
+      ...(await checkCursorRules(sourceFiles)),
+      ...(await checkClaudeRules(sourceFiles)),
+    ]
 
     const currentClaude = await readIfExists(CLAUDE_PATH)
     const currentAgents = await readIfExists(AGENTS_PATH)
@@ -168,6 +305,7 @@ const main = async () => {
   }
 
   await syncCursorRules(sourceFiles)
+  await syncClaudeRules(sourceFiles)
   await fs.writeFile(CLAUDE_PATH, nextClaude, "utf8")
   await fs.writeFile(AGENTS_PATH, nextAgents, "utf8")
 

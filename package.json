@@ -6,8 +6,10 @@
   "scripts": {
     "rules:compile": "node scripts/compile-rules.mjs",
     "rules:check": "node scripts/compile-rules.mjs --check",
-    "format": "prettier --write rules/**/*.mdc && prettier --write scripts/compile-rules.mjs README.md",
-    "format:check": "prettier --check rules/**/*.mdc && prettier --check scripts/compile-rules.mjs README.md"
+    "rules:link:codex": "node scripts/link-codex-global.mjs",
+    "rules:link:claude": "node scripts/link-claude-global.mjs",
+    "format": "prettier --write rules/**/*.mdc && prettier --write scripts/*.mjs README.md",
+    "format:check": "prettier --check rules/**/*.mdc && prettier --check scripts/*.mjs README.md"
   },
   "devDependencies": {
     "prettier": "^3.8.1"

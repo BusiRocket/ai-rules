@@ -19,7 +19,7 @@ A reusable set of [Cursor rules](https://docs.cursor.com/context/rules-for-ai) o
 ## Requirements
 
 - [Cursor](https://cursor.com) (for `.cursor/rules`)
-- Claude Code (for `CLAUDE.md`)
+- Claude Code (for `CLAUDE.md` and `.claude/rules/*.md`)
 - Codex (for `AGENTS.md`)
 
 ---
@@ -34,7 +34,7 @@ To use with Cursor globally, compile first and symlink generated `.cursor/rules`
 git clone https://github.com/BusiRocket/ai-rules.git
 cd ai-rules
 pnpm rules:compile
-ln -s "$(pwd)/ai-rules/.cursor/rules" ~/.cursor/rules
+ln -s "$(pwd)/.cursor/rules" ~/.cursor/rules
 ```
 
 If you cloned into a different directory, use that path as the source:
@@ -44,6 +44,55 @@ ln -s /path/to/ai-rules/.cursor/rules ~/.cursor/rules
 ```
 
 Cursor will then load these rules globally. To use rules per project instead, see [Quick start](#quick-start) below.
+
+### Codex global setup
+
+To use the generated `AGENTS.md` globally in Codex:
+
+```bash
+pnpm rules:compile
+pnpm rules:link:codex
+```
+
+This links:
+
+- `~/.codex/AGENTS.md` -> `<repo>/AGENTS.md`
+- `~/.codex/rules/default.rules` -> `<repo>/codex/rules/default.rules`
+
+Then restart Codex.
+
+`~/.codex/rules/default.rules` is an empty template by default.
+If you add your own `prefix_rule(...)` entries, validate them with:
+
+```bash
+codex execpolicy check --pretty \
+  --rules ~/.codex/rules/default.rules \
+  -- gh pr view 7888 --json title,body,comments
+```
+
+If you want to create links manually:
+
+```bash
+mkdir -p ~/.codex/rules
+ln -s "$(pwd)/AGENTS.md" ~/.codex/AGENTS.md
+ln -s "$(pwd)/codex/rules/default.rules" ~/.codex/rules/default.rules
+```
+
+### Claude global setup
+
+To use generated Claude memory globally:
+
+```bash
+pnpm rules:compile
+pnpm rules:link:claude
+```
+
+This links:
+
+- `~/.claude/CLAUDE.md` -> `<repo>/CLAUDE.md`
+- `~/.claude/rules/busirocket` -> `<repo>/.claude/rules`
+
+Then restart Claude Code.
 
 ---
 
@@ -58,7 +107,7 @@ Cursor will then load these rules globally. To use rules per project instead, se
 
    This generates:
    - `.cursor/rules/**` for Cursor
-   - `CLAUDE.md` for Claude Code
+   - `CLAUDE.md` and `.claude/rules/**/*.md` for Claude Code
    - `AGENTS.md` for Codex
 
 3. **Optional — validate generated outputs**:
@@ -88,12 +137,14 @@ Cursor will then load these rules globally. To use rules per project instead, se
 
 ## Folder layout
 
-| Folder           | Purpose                              |
-| ---------------- | ------------------------------------ |
-| `rules/`         | Source of truth for all `.mdc` rules |
-| `.cursor/rules/` | Generated rules for Cursor           |
-| `CLAUDE.md`      | Generated bundle for Claude Code     |
-| `AGENTS.md`      | Generated bundle for Codex           |
+| Folder           | Purpose                                 |
+| ---------------- | --------------------------------------- |
+| `rules/`         | Source of truth for all `.mdc` rules    |
+| `.cursor/rules/` | Generated rules for Cursor              |
+| `CLAUDE.md`      | Generated bundle for Claude Code        |
+| `.claude/rules/` | Generated modular rules for Claude Code |
+| `AGENTS.md`      | Generated bundle for Codex              |
+| `codex/rules/`   | Source-controlled Codex `.rules` files  |
 
 ---
 
@@ -115,12 +166,32 @@ Rules reference other rules by path (e.g. `.cursor/rules/nextjs/route-handlers.m
 
 When working inside this repository:
 
-| Script               | Description                            |
-| -------------------- | -------------------------------------- |
-| `pnpm rules:compile` | Compile rules for Cursor/Claude/Codex  |
-| `pnpm rules:check`   | Validate generated outputs are current |
-| `pnpm format`        | Format all `.mdc` rules with Prettier  |
-| `pnpm format:check`  | Check that rules are formatted (CI)    |
+| Script                   | Description                            |
+| ------------------------ | -------------------------------------- |
+| `pnpm rules:compile`     | Compile rules for Cursor/Claude/Codex  |
+| `pnpm rules:check`       | Validate generated outputs are current |
+| `pnpm rules:link:codex`  | Create/update global Codex symlinks    |
+| `pnpm rules:link:claude` | Create/update global Claude symlinks   |
+| `pnpm format`            | Format all `.mdc` rules with Prettier  |
+| `pnpm format:check`      | Check that rules are formatted (CI)    |
+
+---
+
+## Codex coverage checklist
+
+Current status against Codex docs:
+
+- `AGENTS.md` support: **enabled** (generated from `rules/**/*.mdc`).
+- `CLAUDE.md` support: **enabled** (generated from `rules/**/*.mdc`).
+- `.claude/rules/*.md` support: **enabled** (generated from `rules/**/*.mdc`, with `globs` mapped to `paths`).
+- `Rules` (`.rules` / `prefix_rule`) support: **template ready** (`codex/rules/default.rules` + global symlink helper).
+- `codex execpolicy check` test flow: **documented** for your own rules.
+- Inline rule tests (`match` / `not_match`): **available** when you define your own rules.
+
+Not yet automated:
+
+- No compile step from `.mdc` to `.rules` (they are different languages and should stay separate).
+- No CI check yet for `codex execpolicy check` (can be added if you want).
 
 ---
 

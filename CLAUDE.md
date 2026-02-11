@@ -836,6 +836,7 @@ This rule references:
 - **Vite runtime** (when using Vite): `.cursor/rules/vite/runtime-safety.mdc` — no Node globals in browser bundles; use `import.meta.env`
 - **Next.js + Supabase** (optional): `.cursor/rules/integrations/nextjs-supabase.mdc` — auth/RLS and boundary-safe data access
 - **Stripe subscriptions** (optional): `.cursor/rules/integrations/stripe-subscriptions.mdc` — webhook safety and subscription sync
+- **Payload CMS + Node** (optional): `.cursor/rules/integrations/payload-cms.mdc` — content models, hooks, Mongo patterns, access control
 
 ## Short summary
 
@@ -953,6 +954,43 @@ alwaysApply: false
 
 - Use realtime subscriptions intentionally; unsubscribe/cleanup to avoid leaks.
 - Validate uploads and enforce storage access policies.
+```
+
+## integrations/payload-cms.mdc
+
+```mdc
+---
+description: Payload CMS + MongoDB standards (collections, hooks, access, integrations)
+globs: "src/collections/**/*.ts,src/globals/**/*.ts,src/fields/**/*.ts,src/hooks/**/*.ts,src/endpoints/**/*.ts,src/utilities/**/*.ts"
+alwaysApply: false
+---
+
+# Payload CMS + MongoDB Standards
+
+## Content modeling
+
+- Model collections/globals by domain with explicit field validation and relationships.
+- Reuse field groups/blocks for repeated content structures.
+- Prefer schema/migration-driven changes over ad-hoc data shape drift.
+
+## Access and hooks
+
+- Keep access control explicit (collection and field-level where needed).
+- Use hooks for extension points; keep hooks small and side-effect aware.
+- Prefer custom endpoints for integration-specific logic instead of overriding core behavior.
+
+## MongoDB usage
+
+- Design indexes intentionally for common query patterns.
+- Use aggregation pipelines for heavy read transformations when justified.
+- Use pagination for large datasets and avoid unbounded queries.
+- Use transactions for multi-document invariants when needed.
+
+## Integration and security
+
+- Validate/sanitize external input from webhooks/APIs before persistence.
+- Keep secrets in env vars and follow least-privilege access for integrations.
+- Add clear error mapping/logging without exposing sensitive internals.
 ```
 
 ## integrations/staffbase.mdc
@@ -1093,7 +1131,9 @@ This rule references:
 - **General JS/TS**: `.cursor/rules/javascript/general.mdc`
 - **Chrome Extensions MV3**: `.cursor/rules/javascript/chrome-extension-mv3.mdc`
 - **Modern web apps**: `.cursor/rules/javascript/web-apps.mdc`
+- **Vue + Vite** (optional): `.cursor/rules/javascript/vue-vite.mdc`
 - **SvelteKit** (optional): `.cursor/rules/javascript/sveltekit.mdc`
+- **Payload CMS + Node** (optional): `.cursor/rules/integrations/payload-cms.mdc`
 - **React Native/Expo**: `.cursor/rules/javascript/react-native-expo.mdc`
 - **Playwright QA**: `.cursor/rules/javascript/playwright-qa.mdc`
 - **Shopify theme JS**: `.cursor/rules/javascript/shopify-theme.mdc`
@@ -1366,6 +1406,38 @@ alwaysApply: false
 - Use stores for shared cross-route state; keep local state local.
 - Keep components small and focused; extract reusable logic to utilities.
 - Keep file/folder naming consistent and predictable across routes/components.
+```
+
+## javascript/vue-vite.mdc
+
+```mdc
+---
+description: Vue + Vite standards (Composition API, routing/state boundaries, perf)
+globs: "src/**/*.vue,src/**/*.ts,vite.config.*,src/router/**/*,src/stores/**/*"
+alwaysApply: false
+---
+
+# Vue + Vite Standards
+
+## Component and state model
+
+- Use Composition API with `<script setup lang=\"ts\">` for Vue components.
+- Keep components focused; move shared logic to composables/utilities.
+- Use Pinia for shared client state; keep local state local.
+- Prefer explicit typed props/emits and avoid implicit `any` data flow.
+
+## Routing and data
+
+- Keep route modules organized and lazy-load heavy route chunks.
+- Keep data-fetching concerns separate from presentational components.
+- Use validation at boundaries and normalize API errors before UI consumption.
+
+## UI and performance
+
+- Use utility-first styling consistently (Tailwind + chosen component libs).
+- Use async components/Suspense for non-critical UI sections when beneficial.
+- Optimize Vite chunking/code-splitting intentionally; avoid giant vendor bundles.
+- Prefer semantic HTML and keyboard-accessible interactions.
 ```
 
 ## javascript/web-apps.mdc
@@ -1917,6 +1989,7 @@ This rule references:
 - **Laravel + Livewire** (optional): `.cursor/rules/php/laravel-livewire.mdc` - Livewire components, UX feedback, component boundaries
 - **Laravel + Vue** (optional): `.cursor/rules/php/laravel-vue.mdc` - Inertia/SPA boundaries, API contracts, frontend-state discipline
 - **WordPress**: `.cursor/rules/php/wordpress.mdc` - WP APIs, nonces/capabilities, escaping/sanitization
+- **WooCommerce** (optional): `.cursor/rules/php/woocommerce.mdc` - WC hooks, CRUD/data stores, notices, sessions, webhooks
 - **Drupal**: `.cursor/rules/php/drupal.mdc` - Drupal services, Form API, cache metadata, module patterns
 
 ## Short summary
@@ -2176,6 +2249,42 @@ alwaysApply: true
 - Unit + feature tests with PHPUnit/Pest.
 - Use factories and isolated test databases.
 - Add browser/E2E tests only for critical end-user flows.
+```
+
+## php/woocommerce.mdc
+
+```mdc
+---
+description: WooCommerce standards (hooks, CRUD/data stores, sessions, notices)
+globs: "wp-content/plugins/**/*.php,wp-content/themes/**/*.php"
+alwaysApply: false
+---
+
+# WooCommerce Standards
+
+## WooCommerce-native APIs first
+
+- Prefer WooCommerce hooks/actions/filters over template/core modifications.
+- Use WooCommerce helpers (`wc_get_product`, order/customer APIs) instead of generic WP access when domain-specific.
+- Use WooCommerce CRUD/data-store patterns for custom commerce data behavior.
+
+## Security and integrity
+
+- Keep nonce/capability checks for admin and state-changing flows.
+- Validate/sanitize all external input and escape output by context.
+- Verify webhook or callback authenticity where applicable.
+
+## UX and operations
+
+- Use WooCommerce notice system (`wc_add_notice`) for user-facing feedback.
+- Use WooCommerce logging APIs for operational diagnostics.
+- Keep session usage minimal and explicit (`WC()->session`) for temporary cart/checkout state only.
+
+## Extensibility and compatibility
+
+- Check WooCommerce activation/version compatibility before enabling integration features.
+- Keep customizations update-safe (plugin hooks/template override conventions).
+- Keep i18n and RTL support aligned with WooCommerce/WordPress practices.
 ```
 
 ## php/wordpress.mdc
@@ -2911,6 +3020,7 @@ Use **@rust** when working on Rust or Tauri code.
 This rule references:
 
 - **Rust + Tauri**: `.cursor/rules/rust/rust-tauri.mdc` — one-thing-per-file, module layout, SQL/prompt in separate files, Tauri command checklist (command file + lib.rs + permissions)
+- **Async concurrency**: `.cursor/rules/rust/async-concurrency.mdc` — tokio tasks/channels, cancellation, timeouts, retries
 - **Cross-platform**: `.cursor/rules/rust/crossplatform.mdc` — correct `#[cfg]` usage, platform imports, target-specific deps
 - **Pest grammars**: `.cursor/rules/rust/pest.mdc` — `.pest` authoring/debugging and atomic/silent rule guidance
 - **RON usage**: `.cursor/rules/rust/ron.mdc` — readable `.ron` and serde-based (de)serialization
@@ -2921,6 +3031,44 @@ This rule references:
 - One public function/type/trait per file; no inline SQL or prompts (use `include_str!()`).
 - New Tauri command: (1) command file, (2) register in `lib.rs`, (3) add to `commands.allow` in permissions.
 - Use `#[cfg]` (not `cfg!`) for platform-specific APIs and imports.
+- Prefer bounded async channels and explicit cancellation/timeout paths.
+```
+
+## rust/async-concurrency.mdc
+
+```mdc
+---
+description: Rust async and concurrency standards (Tokio, channels, cancellation)
+globs: "*.rs"
+alwaysApply: false
+---
+
+# Rust Async and Concurrency
+
+## Runtime and task model
+
+- Prefer `tokio` runtime for async I/O and structured task orchestration.
+- Use `async fn` for async boundaries and explicit return types.
+- Use `tokio::spawn` for concurrent units with clear ownership and cancellation paths.
+- Use `tokio::select!` to coordinate cancellation, timeout, and competing async branches.
+
+## Channels and synchronization
+
+- Prefer bounded channels for backpressure (`mpsc`, `broadcast`, `oneshot` as needed).
+- Handle full-channel/drop scenarios explicitly; do not ignore send failures.
+- Use `tokio::sync::Mutex`/`RwLock` sparingly; keep lock scopes short and never hold across expensive `.await` sections.
+
+## Reliability
+
+- Add timeouts for external calls and long-running async operations.
+- Use retries with bounded backoff for transient failures only.
+- Avoid blocking inside async tasks; offload blocking work via `spawn_blocking`.
+
+## Errors and testing
+
+- Use `Result`/`Option` idiomatically and propagate context-rich errors.
+- Prefer typed errors (`thiserror`) or contextual wrappers (`anyhow`) based on layer boundaries.
+- Use `#[tokio::test]` for async tests and `tokio::time::pause` for deterministic time-based tests.
 ```
 
 ## rust/crossplatform.mdc

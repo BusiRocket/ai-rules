@@ -29,6 +29,7 @@ This rule references:
 - **Vite runtime** (when using Vite): `.cursor/rules/vite/runtime-safety.mdc` — no Node globals in browser bundles; use `import.meta.env`
 - **Next.js + Supabase** (optional): `.cursor/rules/integrations/nextjs-supabase.mdc` — auth/RLS and boundary-safe data access
 - **Stripe subscriptions** (optional): `.cursor/rules/integrations/stripe-subscriptions.mdc` — webhook safety and subscription sync
+- **Payload CMS + Node** (optional): `.cursor/rules/integrations/payload-cms.mdc` — content models, hooks, Mongo patterns, access control
 
 ## Short summary
 

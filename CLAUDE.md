@@ -302,6 +302,7 @@ This rule references the following; for full detail open each:
 
 - **Project & quality**: `.cursor/rules/core/project.mdc` — one-thing-per-file, check script
 - **General**: `.cursor/rules/core/general.mdc` — agent defaults, code style, repo hygiene
+- **Pattern selection**: `.cursor/rules/core/design-pattern-selection.mdc` — choose Builder/Factory/Adapter/Strategy from real pain points
 - **Text hygiene**: `.cursor/rules/core/text-hygiene.mdc` — ASCII punctuation and no invisible chars in docs/config
 - **JavaScript umbrella** (optional): `.cursor/rules/javascript.mdc` — cross-runtime JS/TS domain rules
 - **Boundaries**: `.cursor/rules/core/boundaries.mdc` — where to put routes, components, hooks, utils, services, types
@@ -312,6 +313,7 @@ This rule references the following; for full detail open each:
 ## Short summary
 
 - Many small files; one exported symbol per file; no inline types; no helpers inside components/hooks.
+- Choose patterns by pain source: creation, structure, or behavior.
 - Route handlers thin: validate → call service → return response.
 - Run the project check script after meaningful changes.
 - For non-JS/TS stacks, use stack umbrellas directly (`@php`, `@rust`, `@bash`).
@@ -485,6 +487,83 @@ Split immediately if any is true:
 | Missing return type | Add explicit return type.                  |
 | Circular dependency | Move shared types to `types/`.             |
 | File too large      | Split into smaller focused files.          |
+```
+
+## core/design-pattern-selection.mdc
+
+```mdc
+---
+description: Design pattern selection by pain point (Builder, Factory, Adapter, Strategy, and related patterns)
+globs: "*.ts,*.tsx,*.js,*.mjs,*.cjs,*.rs,*.go,*.py,*.java,*.cs"
+alwaysApply: false
+---
+
+# Design Pattern Selection
+
+## Goal
+
+Choose patterns based on the concrete pain in the code, not from memory.
+
+## First question
+
+Before choosing a pattern, identify where the friction comes from:
+
+1. Object creation
+2. Object boundaries and composition
+3. Behavior that changes by case, context, or state
+
+Pick the pattern only after the pain is explicit.
+
+## 1) Creation pain
+
+Use when constructors/configuration are hard to read, easy to misuse, or repeated.
+
+- `Builder`: Many parameters, valid combinations matter, creation needs early validation.
+- `Factory Method`: Subclasses choose concrete types behind a shared contract.
+- `Abstract Factory`: You need matching families of related objects.
+- `Prototype`: Cloning a configured object is cheaper/safer than rebuilding.
+- `Singleton`: Only for truly process-wide shared/stateless objects; avoid for mutable/request-scoped state.
+
+## 2) Structure pain
+
+Use when boundaries are leaking or composition is awkward.
+
+- `Adapter`: Translate external interfaces into your internal contract.
+- `Facade`: Hide unsafe/verbose multi-step subsystems behind one safe entry point.
+- `Decorator`: Add optional behavior via composition instead of subclass explosion.
+- `Proxy`: Insert lazy-loading, caching, access control, instrumentation, or remote access behind a local interface.
+- `Composite`: Treat leaves and containers uniformly in hierarchical domains.
+- `Bridge`: Avoid subclass matrices when two dimensions evolve independently.
+- `Flyweight`: Share repeated intrinsic data when in-memory duplication is expensive.
+
+## 3) Behavior pain
+
+Use when conditionals multiply and behavior changes often.
+
+- `Strategy`: Swap algorithms/policies while keeping callers stable.
+- `State`: Model explicit modes/transitions instead of branching by flags.
+- `Chain of Responsibility`: Middleware-style sequential handlers with stop/continue contracts.
+- `Command`: Represent actions as objects for queueing, retries, undo, and auditability.
+- `Observer`: One-to-many notifications; keep side effects visible and bounded.
+- `Mediator`: Centralize coordination when peer-to-peer coupling gets messy.
+- `Memento`: Capture and restore snapshots safely (undo/rollback).
+- `Visitor`: Add new operations over a stable object structure.
+
+## Selection Rules
+
+- Start with the smallest pattern that removes today's recurring cost.
+- Do not apply a pattern just to "improve architecture."
+- Keep boundary patterns focused on translation/orchestration, not domain policy.
+- If a pattern increases hidden coupling, roll back to a simpler design.
+- Prefer explicit seams that improve testability and change isolation.
+
+## Practical Signals
+
+- Repeated branching by provider/plan/context -> consider `Strategy`.
+- Repeated "which class do I instantiate?" logic -> centralize with `Factory`.
+- Repeated argument-heavy construction mistakes -> `Builder`.
+- External API shapes leaking across domain code -> `Adapter`.
+- Multi-step workflows called inconsistently -> `Facade` or `Command`.
 ```
 
 ## core/general.mdc

@@ -15,6 +15,7 @@ This rule references the following; for full detail open each:
 
 - **Project & quality**: `.cursor/rules/core/project.mdc` — one-thing-per-file, check script
 - **General**: `.cursor/rules/core/general.mdc` — agent defaults, code style, repo hygiene
+- **Pattern selection**: `.cursor/rules/core/design-pattern-selection.mdc` — choose Builder/Factory/Adapter/Strategy from real pain points
 - **Text hygiene**: `.cursor/rules/core/text-hygiene.mdc` — ASCII punctuation and no invisible chars in docs/config
 - **JavaScript umbrella** (optional): `.cursor/rules/javascript.mdc` — cross-runtime JS/TS domain rules
 - **Boundaries**: `.cursor/rules/core/boundaries.mdc` — where to put routes, components, hooks, utils, services, types
@@ -25,6 +26,7 @@ This rule references the following; for full detail open each:
 ## Short summary
 
 - Many small files; one exported symbol per file; no inline types; no helpers inside components/hooks.
+- Choose patterns by pain source: creation, structure, or behavior.
 - Route handlers thin: validate → call service → return response.
 - Run the project check script after meaningful changes.
 - For non-JS/TS stacks, use stack umbrellas directly (`@php`, `@rust`, `@bash`).

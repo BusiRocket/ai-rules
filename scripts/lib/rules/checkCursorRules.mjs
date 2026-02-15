@@ -20,7 +20,7 @@ export const checkCursorRules = async (sourceFiles, sourceDir, cursorDir) => {
     sourceMap.set(rel, sha256(content))
   }
 
-  let cursorFiles = []
+  let cursorFiles
   try {
     cursorFiles = await listFilesRecursive(cursorDir)
   } catch {

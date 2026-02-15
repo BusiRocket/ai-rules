@@ -24,7 +24,7 @@ export const checkClaudeRules = async (sourceFiles, sourceDir, claudeRulesDir) =
     expectedMap.set(rel, sha256(Buffer.from(`${toClaudeRule(sourceContent)}\n`)))
   }
 
-  let actualFiles = []
+  let actualFiles
   try {
     actualFiles = await listFilesRecursive(claudeRulesDir)
   } catch {

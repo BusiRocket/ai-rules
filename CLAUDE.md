@@ -8,12 +8,6 @@ Do not edit manually. Edit files in `/rules` and recompile.
 ## api.mdc
 
 ```mdc
----
-description: "Umbrella: API layer — route handlers, validation, response shapes, services"
-globs: "app/api/**/*,services/**/*"
-alwaysApply: false
----
-
 # API Rules (umbrella)
 
 Use **@api** when working on route handlers, validation, or backend boundaries.
@@ -36,12 +30,6 @@ This rule references:
 ## api/validation.mdc
 
 ```mdc
----
-description: Validation strategy (no new dependencies)
-globs: "app/api/**/route.ts,services/**/*.ts,utils/**/*.ts"
-alwaysApply: true
----
-
 # Validation Strategy (no new dependencies)
 
 ## Goal
@@ -75,12 +63,6 @@ Validate inputs consistently without adding validation libraries.
 ## backend/services-and-utils.mdc
 
 ```mdc
----
-description: Contracts and naming for services/ vs utils/ (agent-optimized)
-globs: "*.ts,*.tsx,*.js,*.mjs,*.cjs"
-alwaysApply: false
----
-
 # services/ vs utils/ (contracts)
 
 ## utils/ (pure logic)
@@ -125,12 +107,6 @@ Use `services/<area>/xxx.ts` when code:
 ## backend/supabase-services.mdc
 
 ```mdc
----
-description: Supabase services usage (only if Supabase is added)
-globs: "*.ts,*.tsx"
-alwaysApply: false
----
-
 # Supabase Services Usage
 
 ## Rule
@@ -145,12 +121,6 @@ This rule only applies if/when this repository adds Supabase.
 ## backend/supabase.mdc
 
 ```mdc
----
-description: Supabase access rule (only if Supabase is added)
-globs: "*.ts,*.tsx"
-alwaysApply: false
----
-
 # Supabase Access Rule
 
 ## Scope
@@ -167,12 +137,6 @@ This rule only applies if/when this repository adds Supabase.
 ## bash.mdc
 
 ```mdc
----
-description: "Umbrella: Bash/Shell standards and refactor workflow"
-globs: "*.sh"
-alwaysApply: false
----
-
 # Bash Rules (umbrella)
 
 Use **@bash** when working on Bash or shell scripts.
@@ -191,12 +155,6 @@ This rule references:
 ## bash/bash.mdc
 
 ```mdc
----
-description: Bash/Shell script standards for server and automation
-globs: "*.sh"
-alwaysApply: false
----
-
 # Bash/Shell Standards
 
 ## Language & Style
@@ -250,12 +208,6 @@ alwaysApply: false
 ## bash/refactor.mdc
 
 ```mdc
----
-description: One-shot refactor of a Bash file (@file, .sh)
-globs: "*.sh"
-alwaysApply: false
----
-
 # @file Bash Refactor Workflow
 
 Use this rule by referencing **@file** on a Bash script. Apply the following steps to the selected file.
@@ -288,12 +240,6 @@ Use this rule by referencing **@file** on a Bash script. Apply the following ste
 ## core.mdc
 
 ```mdc
----
-description: "Umbrella: core project rules (file discipline, boundaries, naming, anti-patterns)"
-globs: "*.ts,*.tsx,*.js,*.mjs,*.cjs"
-alwaysApply: false
----
-
 # Core Rules (umbrella)
 
 Use **@core** when you need the full set of core project rules in one go.
@@ -322,12 +268,6 @@ This rule references the following; for full detail open each:
 ## core/anti-patterns.mdc
 
 ```mdc
----
-description: Anti-patterns to avoid (agent-optimized)
-globs: "*"
-alwaysApply: true
----
-
 # Anti-Patterns (avoid)
 
 These patterns destroy agent context quality and make refactors risky.
@@ -367,12 +307,6 @@ These patterns destroy agent context quality and make refactors risky.
 ## core/boundaries.mdc
 
 ```mdc
----
-description: Boundaries & placement rules (agent-optimized)
-globs: "*.ts,*.tsx"
-alwaysApply: false
----
-
 # Boundaries & Placement (agent-optimized)
 
 ## Goal
@@ -411,12 +345,6 @@ If you are writing...
 ## core/code-quality-guidelines.mdc
 
 ```mdc
----
-description: Single source of truth for code quality (apply when creating and when refactoring)
-globs: "*.ts,*.tsx"
-alwaysApply: true
----
-
 # Code Quality Guidelines
 
 **Apply these guidelines when creating new code and when refactoring.** They are the single source of truth; other rules (e.g. @refactor, post-refactor checks) reference this file.
@@ -492,12 +420,6 @@ Split immediately if any is true:
 ## core/design-pattern-selection.mdc
 
 ```mdc
----
-description: Design pattern selection by pain point (Builder, Factory, Adapter, Strategy, and related patterns)
-globs: "*.ts,*.tsx,*.js,*.mjs,*.cjs,*.rs,*.go,*.py,*.java,*.cs"
-alwaysApply: false
----
-
 # Design Pattern Selection
 
 ## Goal
@@ -569,12 +491,6 @@ Use when conditionals multiply and behavior changes often.
 ## core/general.mdc
 
 ```mdc
----
-description: General Engineering Guidelines (agent-optimized)
-globs: "*"
-alwaysApply: true
----
-
 # General Engineering Guidelines
 
 ## Core Goal
@@ -639,12 +555,6 @@ Optimize for agent context by keeping **many small, focused files** and explicit
 ## core/naming-and-layout.mdc
 
 ```mdc
----
-description: Naming & layout conventions (agent-optimized)
-globs: "*.ts,*.tsx"
-alwaysApply: false
----
-
 # Naming & Layout Conventions
 
 ## Folder layout (Next.js App Router)
@@ -694,12 +604,6 @@ When the repo has a separate frontend app (e.g. Vite) and backend:
 ## core/project.mdc
 
 ```mdc
----
-description: Project guidelines (strict one-thing-per-file, many small files)
-globs: "*.ts,*.tsx"
-alwaysApply: false
----
-
 # Project Guidelines
 
 ## Core Goal
@@ -738,12 +642,6 @@ Many small, focused files for maximum agent context efficiency.
 ## core/security-baseline.mdc
 
 ```mdc
----
-description: Security baseline for web features (XSS, secrets, least privilege)
-globs: "*.ts,*.tsx,app/**/*,services/**/*"
-alwaysApply: true
----
-
 # Security Baseline
 
 ## Input and output safety
@@ -770,12 +668,6 @@ alwaysApply: true
 ## core/text-hygiene.mdc
 
 ```mdc
----
-description: Text hygiene for docs/config (ASCII punctuation)
-globs: "*.md,*.mdc,.github/**/*"
-alwaysApply: true
----
-
 # Text Hygiene (ASCII)
 
 ## Goal
@@ -799,12 +691,6 @@ Keep docs/config text easy to diff and safe for tooling.
 ## deploy.mdc
 
 ```mdc
----
-description: "Umbrella: Deploy (K8s Helm, agent guidelines)"
-globs: "*.sh,lib/**/*,*.yaml,.env*,deploy.sh"
-alwaysApply: false
----
-
 # Deploy Rules (umbrella)
 
 Use **@deploy** when working on deployment scripts, K8s/Helm, or agent-driven deploy flows.
@@ -822,12 +708,6 @@ This rule references:
 ## deploy/github-security.mdc
 
 ```mdc
----
-description: GitHub secret-handling and workflow hardening
-globs: ".github/workflows/**/*,.env*,*.env"
-alwaysApply: false
----
-
 # GitHub Security and Secrets
 
 ## Non-negotiable
@@ -854,12 +734,6 @@ alwaysApply: false
 ## deploy/sonnet.mdc
 
 ```mdc
----
-description: Agent guidelines for Sonnet + Cursor (codebase search, rules, output)
-globs: "*"
-alwaysApply: false
----
-
 # Agent Guidelines (Sonnet / Cursor)
 
 ## Required
@@ -886,12 +760,6 @@ alwaysApply: false
 ## frontend.mdc
 
 ```mdc
----
-description: "Umbrella: Next.js + React + styling (pages, components, hooks, Tailwind)"
-globs: "app/**/*,components/**/*,hooks/**/*,*.tsx"
-alwaysApply: false
----
-
 # Frontend Rules (umbrella)
 
 Use **@frontend** when working on UI, pages, components, or styling.
@@ -927,12 +795,6 @@ This rule references:
 ## go.mdc
 
 ```mdc
----
-description: "Umbrella: Go backend and microservices standards"
-globs: "*.go,go.mod,go.sum"
-alwaysApply: false
----
-
 # Go Rules (umbrella)
 
 Use **@go** when working on Go codebases.
@@ -951,12 +813,6 @@ This rule references:
 ## go/microservices.mdc
 
 ```mdc
----
-description: Go microservices standards (clean architecture, resilience, observability)
-globs: "*.go,go.mod,go.sum"
-alwaysApply: true
----
-
 # Go Microservices Standards
 
 ## Architecture
@@ -1003,12 +859,6 @@ alwaysApply: true
 ## integrations/nextjs-supabase.mdc
 
 ```mdc
----
-description: Next.js + Supabase integration standards (auth, RLS, typed boundaries)
-globs: "app/**/*,services/**/*,supabase/**/*,middleware.ts"
-alwaysApply: false
----
-
 # Next.js + Supabase Standards
 
 ## Security and auth
@@ -1038,12 +888,6 @@ alwaysApply: false
 ## integrations/payload-cms.mdc
 
 ```mdc
----
-description: Payload CMS + MongoDB standards (collections, hooks, access, integrations)
-globs: "src/collections/**/*.ts,src/globals/**/*.ts,src/fields/**/*.ts,src/hooks/**/*.ts,src/endpoints/**/*.ts,src/utilities/**/*.ts"
-alwaysApply: false
----
-
 # Payload CMS + MongoDB Standards
 
 ## Content modeling
@@ -1075,12 +919,6 @@ alwaysApply: false
 ## integrations/staffbase.mdc
 
 ```mdc
----
-description: Staffbase platform – widgets, APIs/SDK, build and runtime (use when working on Staffbase projects)
-globs: "*"
-alwaysApply: false
----
-
 # Staffbase – Platform Guidelines
 
 Use this rule when working on projects that integrate with **Staffbase** (widgets, APIs/SDK, embedding in Staffbase apps).
@@ -1159,12 +997,6 @@ Use this rule when working on projects that integrate with **Staffbase** (widget
 ## integrations/stripe-subscriptions.mdc
 
 ```mdc
----
-description: Stripe subscription integration standards (webhooks, portal, sync)
-globs: "app/**/*,services/**/*,webhooks/**/*,api/**/*"
-alwaysApply: false
----
-
 # Stripe Subscriptions Standards
 
 ## Core flows
@@ -1194,12 +1026,6 @@ alwaysApply: false
 ## javascript.mdc
 
 ```mdc
----
-description: "Umbrella: JavaScript/TypeScript domain rules (web, extensions, RN, QA, Shopify)"
-globs: "*.js,*.mjs,*.cjs,*.ts,*.tsx"
-alwaysApply: false
----
-
 # JavaScript Rules (umbrella)
 
 Use **@javascript** when working outside strictly Next.js/React app rules or
@@ -1227,12 +1053,6 @@ This rule references:
 ## javascript/chrome-extension-mv3.mdc
 
 ```mdc
----
-description: Chrome extension MV3 standards (permissions, messaging, CSP, service worker)
-globs: "manifest.json,src/**/*.ts,src/**/*.js,extension/**/*.ts,extension/**/*.js"
-alwaysApply: false
----
-
 # Chrome Extension MV3 Standards
 
 ## Architecture split
@@ -1275,12 +1095,6 @@ alwaysApply: false
 ## javascript/general.mdc
 
 ```mdc
----
-description: General JavaScript/TypeScript standards (security, structure, error handling)
-globs: "*.js,*.mjs,*.cjs,*.ts,*.tsx"
-alwaysApply: true
----
-
 # General JavaScript / TypeScript Standards
 
 ## Language defaults
@@ -1321,12 +1135,6 @@ alwaysApply: true
 ## javascript/htmx.mdc
 
 ```mdc
----
-description: HTMX standards (server-driven interactivity with minimal JS)
-globs: "*.html,*.php,*.blade.php,*.twig,*.njk"
-alwaysApply: false
----
-
 # HTMX Standards
 
 ## Interaction model
@@ -1358,12 +1166,6 @@ alwaysApply: false
 ## javascript/playwright-qa.mdc
 
 ```mdc
----
-description: Playwright QA standards (locator strategy, determinism, maintainability)
-globs: "**/*.spec.ts,**/*.spec.js,tests/**/*.ts,tests/**/*.js"
-alwaysApply: false
----
-
 # Playwright QA
 
 ## Test design
@@ -1393,12 +1195,6 @@ alwaysApply: false
 ## javascript/react-native-expo.mdc
 
 ```mdc
----
-description: React Native / Expo JS/TS standards (state, performance, operations)
-globs: "app/**/*.tsx,app/**/*.ts,src/**/*.tsx,src/**/*.ts"
-alwaysApply: false
----
-
 # React Native / Expo
 
 ## Component and state
@@ -1424,12 +1220,6 @@ alwaysApply: false
 ## javascript/shopify-theme.mdc
 
 ```mdc
----
-description: Shopify theme JavaScript standards (OS 2.0, SSR-first, dependency-light)
-globs: "sections/**/*.liquid,snippets/**/*.liquid,assets/**/*.js,assets/**/*.ts"
-alwaysApply: false
----
-
 # Shopify Theme JavaScript (OS 2.0)
 
 ## Rendering strategy
@@ -1460,12 +1250,6 @@ alwaysApply: false
 ## javascript/sveltekit.mdc
 
 ```mdc
----
-description: SvelteKit standards (SSR-first, server boundaries, progressive enhancement)
-globs: "src/**/*.svelte,src/**/*.ts,src/routes/**/*,svelte.config.*"
-alwaysApply: false
----
-
 # SvelteKit Standards
 
 ## Rendering and routing
@@ -1490,12 +1274,6 @@ alwaysApply: false
 ## javascript/vue-vite.mdc
 
 ```mdc
----
-description: Vue + Vite standards (Composition API, routing/state boundaries, perf)
-globs: "src/**/*.vue,src/**/*.ts,vite.config.*,src/router/**/*,src/stores/**/*"
-alwaysApply: false
----
-
 # Vue + Vite Standards
 
 ## Component and state model
@@ -1522,12 +1300,6 @@ alwaysApply: false
 ## javascript/web-apps.mdc
 
 ```mdc
----
-description: Modern web app JS/TS rules (React/Next-agnostic additions)
-globs: "*.ts,*.tsx,*.js,*.jsx"
-alwaysApply: false
----
-
 # Modern Web Apps
 
 ## Component behavior
@@ -1557,12 +1329,6 @@ alwaysApply: false
 ## monorepo.mdc
 
 ```mdc
----
-description: "Umbrella: Monorepo standards (Turbo workspaces, package boundaries)"
-globs: "turbo.json,package.json,pnpm-workspace.yaml,apps/**/*,packages/**/*"
-alwaysApply: false
----
-
 # Monorepo Rules (umbrella)
 
 Use **@monorepo** when working on workspace structure, package boundaries, or Turbo pipelines.
@@ -1581,12 +1347,6 @@ This rule references:
 ## monorepo/turbo.mdc
 
 ```mdc
----
-description: Turbo monorepo standards (apps/packages boundaries and pipeline discipline)
-globs: "turbo.json,package.json,pnpm-workspace.yaml,apps/**/*,packages/**/*"
-alwaysApply: false
----
-
 # Turbo Monorepo Standards
 
 ## Boundaries
@@ -1611,12 +1371,6 @@ alwaysApply: false
 ## n8n.mdc
 
 ```mdc
----
-description: "Umbrella: n8n workflow design and MCP tools"
-globs: "*.json"
-alwaysApply: false
----
-
 # n8n Rules (umbrella)
 
 Use **@n8n** when designing, building, or validating n8n workflows with n8n-MCP tools.
@@ -1633,12 +1387,6 @@ This rule references:
 ## n8n/n8n-mcp.mdc
 
 ```mdc
----
-description: n8n workflow design and validation with n8n-MCP tools
-globs: "*.json"
-alwaysApply: false
----
-
 # n8n Workflow Rules (MCP)
 
 When using n8n-MCP tools to design, build, or validate n8n workflows:
@@ -1674,12 +1422,6 @@ When using n8n-MCP tools to design, build, or validate n8n workflows:
 ## nextjs.mdc
 
 ```mdc
----
-description: "Umbrella: Next.js App Router standards (routing, data, actions, performance)"
-globs: "app/**/*,components/**/*"
-alwaysApply: false
----
-
 # Next.js Rules (umbrella)
 
 Use **@nextjs** when working primarily on App Router architecture and flows.
@@ -1704,12 +1446,6 @@ This rule references:
 ## nextjs/api-response-shapes.mdc
 
 ```mdc
----
-description: API response shapes (agent-optimized)
-globs: "app/api/**/route.ts"
-alwaysApply: true
----
-
 # API Response Shapes
 
 ## Goal
@@ -1747,12 +1483,6 @@ Prefer one of these:
 ## nextjs/data-fetching.mdc
 
 ```mdc
----
-description: Next.js data fetching strategy (RSC-first, caching intent, waterfall prevention)
-globs: "app/**/*.tsx,app/**/*.ts,services/**/*.ts"
-alwaysApply: true
----
-
 # Data Fetching Strategy
 
 ## Defaults
@@ -1785,12 +1515,6 @@ alwaysApply: true
 ## nextjs/error-observability.mdc
 
 ```mdc
----
-description: Next.js error handling and observability (boundaries, context-rich logs)
-globs: "app/**/*.tsx,app/**/*.ts,services/**/*.ts"
-alwaysApply: true
----
-
 # Error Handling and Observability
 
 ## UI boundaries
@@ -1819,12 +1543,6 @@ alwaysApply: true
 ## nextjs/forms-and-actions.mdc
 
 ```mdc
----
-description: Forms and server action integration (Zod, RHF, next-safe-action)
-globs: "app/**/*.tsx,app/**/*.ts,components/**/*.tsx,services/**/*.ts"
-alwaysApply: false
----
-
 # Forms and Actions
 
 ## Validation-first forms
@@ -1856,12 +1574,6 @@ alwaysApply: false
 ## nextjs/nextjs.mdc
 
 ```mdc
----
-description: Next.js App Router rules (agent-optimized)
-globs: "app/**/*"
-alwaysApply: true
----
-
 # Next.js (App Router) Rules
 
 ## Server vs Client Components
@@ -1925,12 +1637,6 @@ Allowed exceptions:
 ## nextjs/rendering-performance.mdc
 
 ```mdc
----
-description: Next.js rendering and performance defaults (RSC-first, dynamic imports, web vitals)
-globs: "app/**/*.tsx,components/**/*.tsx"
-alwaysApply: true
----
-
 # Rendering and Performance
 
 ## Rendering model
@@ -1963,12 +1669,6 @@ alwaysApply: true
 ## nextjs/route-handlers.mdc
 
 ```mdc
----
-description: Next.js Route Handlers (thin handlers, service boundaries)
-globs: "app/api/**/route.ts"
-alwaysApply: true
----
-
 # Route Handlers (App Router)
 
 ## Placement & Conflicts
@@ -2011,12 +1711,6 @@ No business logic, no DB/network access directly in the handler.
 ## nextjs/server-actions.mdc
 
 ```mdc
----
-description: Next.js server actions standards (validation, response shape, expected errors)
-globs: "app/**/actions.ts,app/**/actions/**/*.ts,app/**/*action*.ts,app/**/*action*.tsx"
-alwaysApply: false
----
-
 # Server Actions Standards
 
 ## Goal
@@ -2051,12 +1745,6 @@ Use a consistent action result shape:
 ## php.mdc
 
 ```mdc
----
-description: "Umbrella: PHP standards (general + Laravel + WordPress + Drupal)"
-globs: "*.php,composer.json"
-alwaysApply: false
----
-
 # PHP Rules (umbrella)
 
 Use **@php** when working on PHP codebases.
@@ -2081,12 +1769,6 @@ This rule references:
 ## php/drupal.mdc
 
 ```mdc
----
-description: Drupal standards (services, entities, Form API, cache metadata, and DI)
-globs: "web/modules/**/*.php,modules/**/*.php,*.module,*.install,*.services.yml,*.routing.yml"
-alwaysApply: true
----
-
 # Drupal Standards
 
 ## Platform constraints
@@ -2137,12 +1819,6 @@ alwaysApply: true
 ## php/general.mdc
 
 ```mdc
----
-description: General PHP standards (security-first, typed code, thin entry layers)
-globs: "*.php,composer.json"
-alwaysApply: true
----
-
 # General PHP Standards
 
 ## Baseline
@@ -2188,12 +1864,6 @@ alwaysApply: true
 ## php/laravel-livewire.mdc
 
 ```mdc
----
-description: Laravel + Livewire standards (component boundaries and UX state)
-globs: "app/Livewire/**/*.php,resources/views/livewire/**/*.blade.php,resources/views/**/*.blade.php"
-alwaysApply: false
----
-
 # Laravel + Livewire
 
 ## Component architecture
@@ -2223,12 +1893,6 @@ alwaysApply: false
 ## php/laravel-vue.mdc
 
 ```mdc
----
-description: Laravel + Vue standards (API boundaries, SPA contracts, and state)
-globs: "app/**/*.php,routes/**/*.php,resources/js/**/*.{js,ts,vue}"
-alwaysApply: false
----
-
 # Laravel + Vue
 
 ## Boundary design
@@ -2259,12 +1923,6 @@ alwaysApply: false
 ## php/laravel.mdc
 
 ```mdc
----
-description: Laravel standards (framework-native validation, authz, queues, and API boundaries)
-globs: "app/**/*.php,bootstrap/**/*.php,routes/**/*.php,config/**/*.php,database/**/*.php,tests/**/*.php"
-alwaysApply: true
----
-
 # Laravel Standards
 
 ## Platform constraints
@@ -2333,12 +1991,6 @@ alwaysApply: true
 ## php/woocommerce.mdc
 
 ```mdc
----
-description: WooCommerce standards (hooks, CRUD/data stores, sessions, notices)
-globs: "wp-content/plugins/**/*.php,wp-content/themes/**/*.php"
-alwaysApply: false
----
-
 # WooCommerce Standards
 
 ## WooCommerce-native APIs first
@@ -2369,12 +2021,6 @@ alwaysApply: false
 ## php/wordpress.mdc
 
 ```mdc
----
-description: WordPress standards (WPCS, hooks/APIs, nonces, escaping, and safe persistence)
-globs: "wp-content/**/*.php,*.php"
-alwaysApply: true
----
-
 # WordPress Standards
 
 ## Platform constraints
@@ -2423,12 +2069,6 @@ alwaysApply: true
 ## python.mdc
 
 ```mdc
----
-description: "Umbrella: Python schema-driven development and UV"
-globs: "*.py"
-alwaysApply: false
----
-
 # Python Rules (umbrella)
 
 Use **@python** when working on Python code.
@@ -2447,12 +2087,6 @@ This rule references:
 ## python/django-rest-api.mdc
 
 ```mdc
----
-description: Django REST API standards (DRF design, contracts, authz, pagination)
-globs: "**/api/**/*.py,**/serializers.py,**/views.py,**/permissions.py,**/urls.py"
-alwaysApply: false
----
-
 # Django REST API Standards
 
 ## API design
@@ -2491,12 +2125,6 @@ alwaysApply: false
 ## python/django.mdc
 
 ```mdc
----
-description: Django standards (modular apps, ORM-first, security and performance)
-globs: "*.py,**/templates/**/*.html"
-alwaysApply: false
----
-
 # Django Standards
 
 ## Architecture
@@ -2536,12 +2164,6 @@ alwaysApply: false
 ## python/python.mdc
 
 ```mdc
----
-description: Python schema-driven development and UV-based tooling
-globs: "*.py"
-alwaysApply: false
----
-
 # Python Standards (Schema-Driven + UV)
 
 ## Core Principles
@@ -2592,12 +2214,6 @@ alwaysApply: false
 ## react.mdc
 
 ```mdc
----
-description: "Umbrella: React standards (architecture, hooks, state, a11y, forms, performance)"
-globs: "components/**/*,hooks/**/*,stores/**/*,*.tsx,*.ts"
-alwaysApply: false
----
-
 # React Rules (umbrella)
 
 Use **@react** when working on React components, hooks, state, forms, and UI behavior.
@@ -2626,12 +2242,6 @@ This rule references:
 ## react/accessibility.mdc
 
 ```mdc
----
-description: React accessibility baseline (semantic HTML, keyboard support, forms)
-globs: "*.tsx"
-alwaysApply: true
----
-
 # Accessibility Baseline
 
 ## Semantics first
@@ -2662,12 +2272,6 @@ alwaysApply: true
 ## react/component-patterns.mdc
 
 ```mdc
----
-description: React component patterns (strict one-component-per-file)
-globs: "*.tsx"
-alwaysApply: true
----
-
 # React Component Patterns (strict)
 
 ## Component Organization
@@ -2724,12 +2328,6 @@ Avoid repeating the parent name in child filenames.
 ## react/forms-validation.mdc
 
 ```mdc
----
-description: React forms and validation strategy (Zod, RHF optional)
-globs: "*.tsx,components/**/*.tsx,hooks/**/*.ts,services/**/*.ts"
-alwaysApply: true
----
-
 # Forms and Validation
 
 ## Validation baseline
@@ -2752,12 +2350,6 @@ alwaysApply: true
 ## react/hooks-guide.mdc
 
 ```mdc
----
-description: React Hooks best practices (strict one-hook-per-file)
-globs: "*.ts,*.tsx"
-alwaysApply: true
----
-
 # Hooks Best Practices (strict)
 
 ## One Hook Per File (STRICT)
@@ -2794,12 +2386,6 @@ alwaysApply: true
 ## react/naming.mdc
 
 ```mdc
----
-description: React naming conventions for handlers, booleans, and hooks
-globs: "*.tsx,hooks/**/*.ts,components/**/*.tsx"
-alwaysApply: true
----
-
 # React Naming
 
 ## Handlers
@@ -2828,12 +2414,6 @@ alwaysApply: true
 ## react/performance.mdc
 
 ```mdc
----
-description: React rendering performance rules (pragmatic, measure-first)
-globs: "*.tsx,components/**/*.tsx,hooks/**/*.ts"
-alwaysApply: true
----
-
 # React Performance
 
 ## Core approach
@@ -2860,12 +2440,6 @@ alwaysApply: true
 ## react/react-architecture.mdc
 
 ```mdc
----
-description: React + TypeScript architecture (App Router, strict file discipline)
-globs: "*.ts,*.tsx"
-alwaysApply: true
----
-
 # React + TypeScript Architecture
 
 ## Defaults (App Router)
@@ -2897,12 +2471,6 @@ alwaysApply: true
 ## react/security.mdc
 
 ```mdc
----
-description: React UI security baseline (XSS and untrusted HTML)
-globs: "*.tsx,components/**/*.tsx"
-alwaysApply: true
----
-
 # React Security
 
 ## Untrusted content
@@ -2923,12 +2491,6 @@ alwaysApply: true
 ## react/state-management.mdc
 
 ```mdc
----
-description: State management (Zustand) - when to use stores vs props, modal pattern
-globs: "*.tsx,stores/**/*.ts"
-alwaysApply: false
----
-
 # State Management (Zustand)
 
 Apply when the project uses Zustand (or a similar store) for shared UI state.
@@ -2972,12 +2534,6 @@ Consider aggregate hooks to reduce store coupling when many components need rela
 ## react/testing.mdc
 
 ```mdc
----
-description: React testing strategy (opt-in, risk-based)
-globs: "*.tsx,*.test.ts,*.test.tsx"
-alwaysApply: false
----
-
 # React Testing
 
 ## When to test
@@ -2999,12 +2555,6 @@ alwaysApply: false
 ## react/url-server-state.mdc
 
 ```mdc
----
-description: URL state and server state strategy (nuqs, RSC-first, TanStack Query optional)
-globs: "*.ts,*.tsx,app/**/*.tsx"
-alwaysApply: false
----
-
 # URL State and Server State
 
 ## Priority order
@@ -3031,12 +2581,6 @@ alwaysApply: false
 ## refactor.mdc
 
 ```mdc
----
-description: "Umbrella: Refactor workflow — @refactor, TypeScript refactoring"
-globs: "*.ts,*.tsx"
-alwaysApply: false
----
-
 # Refactor Rules (umbrella)
 
 Use **@refactor** when refactoring a file or splitting code.
@@ -3055,12 +2599,6 @@ This rule references:
 ## refactor/file-refactor.mdc
 
 ```mdc
----
-description: Refactor current file – use @refactor
-globs: "*.ts,*.tsx"
-alwaysApply: false
----
-
 # Refactor (@refactor)
 
 Use this rule by referencing **@refactor** when you need to refactor the currently selected file.
@@ -3086,12 +2624,6 @@ Use this rule by referencing **@refactor** when you need to refactor the current
 ## rust.mdc
 
 ```mdc
----
-description: "Umbrella: Rust + Tauri (layout, SQL/prompt separation, commands checklist)"
-globs: "*.rs,*.sql,*.prompt,src-tauri/**/*"
-alwaysApply: false
----
-
 # Rust / Tauri Rules (umbrella)
 
 Use **@rust** when working on Rust or Tauri code.
@@ -3116,12 +2648,6 @@ This rule references:
 ## rust/async-concurrency.mdc
 
 ```mdc
----
-description: Rust async and concurrency standards (Tokio, channels, cancellation)
-globs: "*.rs"
-alwaysApply: false
----
-
 # Rust Async and Concurrency
 
 ## Runtime and task model
@@ -3153,12 +2679,6 @@ alwaysApply: false
 ## rust/crossplatform.mdc
 
 ```mdc
----
-description: Cross-platform Rust conditional compilation
-globs: "*.rs,Cargo.toml"
-alwaysApply: false
----
-
 # Cross-platform Rust
 
 ## Goal
@@ -3189,12 +2709,6 @@ Compile cleanly on supported targets (Windows/Linux/macOS) without cfg-related w
 ## rust/linthunter.mdc
 
 ```mdc
----
-description: Rust lint triage and false-positive analysis
-globs: "*.rs"
-alwaysApply: false
----
-
 # Rust Lint Triage
 
 ## Goal
@@ -3221,12 +2735,6 @@ Decide whether a lint is valid, likely false-positive, or uncertain.
 ## rust/pest.mdc
 
 ```mdc
----
-description: Pest grammar authoring and debugging
-globs: "*.pest,*.rs"
-alwaysApply: false
----
-
 # Pest Grammar Guidance
 
 ## Scope
@@ -3251,12 +2759,6 @@ Use when editing `.pest` grammars or Rust parser code based on Pest.
 ## rust/ron.mdc
 
 ```mdc
----
-description: RON (Rusty Object Notation) usage
-globs: "*.ron,*.rs"
-alwaysApply: false
----
-
 # RON Guidance
 
 ## Scope
@@ -3279,12 +2781,6 @@ Use when editing `.ron` files or Rust code that serializes/deserializes RON.
 ## rust/rust-tauri.mdc
 
 ```mdc
----
-description: Rust + Tauri standards (strict one-thing-per-file)
-globs: "*.rs,*.sql,*.prompt,*.txt"
-alwaysApply: true
----
-
 # Rust + Tauri Standards (strict)
 
 ## Goal
@@ -3397,12 +2893,6 @@ After meaningful changes, run the project's check script (e.g. `pnpm run check`,
 ## styling/bootstrap.mdc
 
 ```mdc
----
-description: Bootstrap standards (grid, components, utilities, accessibility)
-globs: "*.html,*.php,*.blade.php,*.tsx,*.jsx,*.vue"
-alwaysApply: false
----
-
 # Bootstrap Standards
 
 ## Layout and components
@@ -3432,12 +2922,6 @@ alwaysApply: false
 ## styling/tailwind/baseline.mdc
 
 ```mdc
----
-description: Tailwind v4 baseline defaults (utility-first, setup, no apply in production)
-globs: "*.ts,*.tsx,*.css,*.hbs,*.liquid"
-alwaysApply: true
----
-
 # Tailwind Baseline
 
 - Utility-first by default.
@@ -3451,12 +2935,6 @@ alwaysApply: true
 ## styling/tailwind/class-authoring.mdc
 
 ```mdc
----
-description: Tailwind class authoring conventions (ordering, variants, readability)
-globs: "*.ts,*.tsx,*.hbs,*.liquid"
-alwaysApply: true
----
-
 # Tailwind Class Authoring
 
 - Keep class lists readable and stable.
@@ -3471,12 +2949,6 @@ alwaysApply: true
 ## styling/tailwind/performance-hygiene.mdc
 
 ```mdc
----
-description: Tailwind performance and output hygiene
-globs: "*.ts,*.tsx,*.css,*.hbs,*.liquid"
-alwaysApply: true
----
-
 # Tailwind Performance and Hygiene
 
 - Keep markup clean; avoid unnecessary utility churn.
@@ -3488,12 +2960,6 @@ alwaysApply: true
 ## styling/tailwind/responsive.mdc
 
 ```mdc
----
-description: Tailwind responsive strategy (mobile-first and breakpoint discipline)
-globs: "*.ts,*.tsx,*.hbs,*.liquid"
-alwaysApply: true
----
-
 # Tailwind Responsive Strategy
 
 - Mobile-first defaults, then progressive breakpoints:
@@ -3505,12 +2971,6 @@ alwaysApply: true
 ## styling/tailwind/stack-notes.mdc
 
 ```mdc
----
-description: Tailwind stack-specific notes (React/Next, Blade/Livewire, Ghost/Alpine)
-globs: "*.tsx,*.blade.php,*.hbs,*.liquid"
-alwaysApply: false
----
-
 # Tailwind Stack Notes
 
 ## React / Next
@@ -3532,12 +2992,6 @@ alwaysApply: false
 ## styling/tailwind/state-accessibility.mdc
 
 ```mdc
----
-description: Tailwind state and accessibility styling (focus-visible, disabled, aria/data variants)
-globs: "*.ts,*.tsx,*.hbs,*.liquid"
-alwaysApply: true
----
-
 # Tailwind State and Accessibility
 
 - Interactive components must have visible `focus-visible` styles.
@@ -3551,12 +3005,6 @@ alwaysApply: true
 ## styling/tailwind/tokens-theming.mdc
 
 ```mdc
----
-description: Tailwind tokens and theming strategy (semantic tokens + CSS variables)
-globs: "*.ts,*.tsx,*.css"
-alwaysApply: true
----
-
 # Tailwind Tokens and Theming
 
 - Prefer semantic tokens over hardcoded color utilities:
@@ -3570,12 +3018,6 @@ alwaysApply: true
 ## styling/tailwindcss.mdc
 
 ```mdc
----
-description: Legacy Tailwind entrypoint (use @tailwind umbrella)
-globs: "*.ts,*.tsx,*.css"
-alwaysApply: false
----
-
 # Tailwind Legacy Pointer
 
 Use **@tailwind** and the split Tailwind rules:
@@ -3593,12 +3035,6 @@ Use **@tailwind** and the split Tailwind rules:
 ## tailwind.mdc
 
 ```mdc
----
-description: "Umbrella: Tailwind CSS v4 standards (tokens, authoring, states, responsive, hygiene)"
-globs: "*.ts,*.tsx,*.css,*.hbs,*.liquid"
-alwaysApply: false
----
-
 # Tailwind Rules (umbrella)
 
 Use **@tailwind** when working on Tailwind styles, component variants, or theme tokens.
@@ -3623,12 +3059,6 @@ This rule references:
 ## typescript.mdc
 
 ```mdc
----
-description: "Umbrella: TypeScript standards, type conventions, and refactor checks"
-globs: "*.ts,*.tsx,types/**/*.ts"
-alwaysApply: false
----
-
 # TypeScript Rules (umbrella)
 
 Use **@typescript** when writing or refactoring TypeScript.
@@ -3650,12 +3080,6 @@ This rule references:
 ## typescript/refactoring-typescript.mdc
 
 ```mdc
----
-description: When creating or refactoring – follow code quality guidelines
-globs: "*.ts,*.tsx"
-alwaysApply: true
----
-
 # Refactoring TypeScript/React Code (strict)
 
 When **creating** new code or **refactoring** existing code, follow the single source of truth:
@@ -3668,12 +3092,6 @@ For a **one-shot refactor** of the current file, use **@refactor** (see [file-re
 ## typescript/standards.mdc
 
 ```mdc
----
-description: TypeScript + React standards (strict one-thing-per-file)
-globs: "*.ts,*.tsx"
-alwaysApply: true
----
-
 # TypeScript + React Standards (strict)
 
 ## Goal
@@ -3752,12 +3170,6 @@ Run the project's check script after meaningful changes (e.g. `pnpm run check`, 
 ## typescript/types-conventions.mdc
 
 ```mdc
----
-description: Types conventions (agent-optimized, one type per file)
-globs: "types/**/*.ts"
-alwaysApply: true
----
-
 # Types Conventions
 
 ## One Type Per File (STRICT)
@@ -3792,12 +3204,6 @@ For boundaries that can fail (services), prefer a typed result object instead of
 ## typescript/typescript-debug.mdc
 
 ```mdc
----
-description: Post creating and refactoring checks (run after every meaningful change)
-globs: "*.ts,*.tsx"
-alwaysApply: true
----
-
 # Post Creating and Refactoring Checks
 
 ## Golden path
@@ -3825,12 +3231,6 @@ Run this after every meaningful change:
 ## vite/runtime-safety.mdc
 
 ```mdc
----
-description: Vite runtime safety — no Node globals in browser bundles
-globs: "*.ts,*.tsx,*.js,*.jsx,vite.config.*"
-alwaysApply: false
----
-
 # Vite Runtime Safety
 
 ## Goal

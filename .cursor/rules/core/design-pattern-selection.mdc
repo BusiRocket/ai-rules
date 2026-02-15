@@ -70,4 +70,3 @@ Use when conditionals multiply and behavior changes often.
 - Repeated argument-heavy construction mistakes -> `Builder`.
 - External API shapes leaking across domain code -> `Adapter`.
 - Multi-step workflows called inconsistently -> `Facade` or `Command`.
-

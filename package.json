@@ -8,10 +8,22 @@
     "rules:check": "node scripts/compile-rules.mjs --check",
     "rules:link:codex": "node scripts/link-codex-global.mjs",
     "rules:link:claude": "node scripts/link-claude-global.mjs",
-    "format": "prettier --write rules/**/*.mdc && prettier --write scripts/**/*.mjs README.md",
-    "format:check": "prettier --check rules/**/*.mdc && prettier --check scripts/**/*.mjs README.md"
+    "rules:link:antigravity": "node scripts/link-antigravity-global.mjs",
+    "rules:link:windsurf": "node scripts/link-windsurf-global.mjs",
+    "rules:link:all": "pnpm run rules:link:codex && pnpm run rules:link:claude && pnpm run rules:link:antigravity && pnpm run rules:link:windsurf",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "check:all": "pnpm run format:check && pnpm run lint && pnpm run rules:check",
+    "check:ci": "pnpm run check:all",
+    "check": "pnpm run check:all"
   },
   "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "eslint": "^9.17.0",
+    "eslint-config-prettier": "^10.1.5",
+    "globals": "^15.14.0",
     "prettier": "^3.8.1"
   },
   "packageManager": "pnpm@10.29.3"

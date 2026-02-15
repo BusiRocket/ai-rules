@@ -1,8 +1,8 @@
 # 🚀 BusiRocket Rules
 
-**Cursor IDE rules for maintainable, agent-friendly codebases** — Next.js, React, TypeScript, API boundaries, and optional Rust/Tauri.
+**Multi-IDE AI rules for maintainable, agent-friendly codebases** — Next.js, React, TypeScript, API boundaries, and optional Rust/Tauri.
 
-A reusable set of [Cursor rules](https://docs.cursor.com/context/rules-for-ai) organised by domain. Rules are kept under ~500 lines, split by concern, and reference each other instead of duplicating content. Optimised for **many small, focused files** and **thin route handlers** so both humans and AI agents can navigate and change the codebase safely.
+A reusable set of AI agent rules compatible with **Cursor**, **Claude Code**, **Antigravity (Google Gemini)**, **Windsurf**, and **Codex**. Rules are kept under ~500 lines, split by concern, and reference each other instead of duplicating content. Optimised for **many small, focused files** and **thin route handlers** so both humans and AI agents can navigate and change the codebase safely.
 
 ---
 
@@ -16,11 +16,17 @@ A reusable set of [Cursor rules](https://docs.cursor.com/context/rules-for-ai) o
 
 ---
 
-## Requirements
+## Supported IDEs & Tools
 
-- [Cursor](https://cursor.com) (for `.cursor/rules`)
-- Claude Code (for `CLAUDE.md` and `.claude/rules/*.md`)
-- Codex (for `AGENTS.md`)
+This repository generates rules for all major AI-powered development tools:
+
+- **[Cursor](https://cursor.com)** — `.cursor/rules/`
+- **[Claude Code](https://claude.ai/code)** — `CLAUDE.md` and `.claude/rules/*.md`
+- **[Antigravity (Google Gemini)](https://antigravity.google/)** — `GEMINI.md` and `.agent/rules/` + `.agent/workflows/`
+- **[Windsurf](https://windsurf.ai)** — `WINDSURF.md` and `.windsurf/rules/`
+- **[Codex](https://codex.ai)** — `AGENTS.md`
+
+All rules are compiled from a single source (`rules/*.mdc`) to maintain consistency across tools.
 
 ---
 
@@ -94,6 +100,50 @@ This links:
 
 Then restart Claude Code.
 
+### Antigravity (Google Gemini) global setup
+
+To use generated rules with Antigravity:
+
+```bash
+pnpm rules:compile
+pnpm rules:link:antigravity
+```
+
+This copies:
+
+- `~/.gemini/GEMINI.md` <- `<repo>/GEMINI.md`
+
+Antigravity rules and workflows are automatically generated:
+
+- `.agent/rules/` — individual rules (max 12,000 chars each)
+- `.agent/workflows/` — sequential workflows for complex tasks
+
+### Windsurf global setup
+
+To use generated rules with Windsurf:
+
+```bash
+pnpm rules:compile
+pnpm rules:link:windsurf
+```
+
+This copies:
+
+- `~/.windsurf/rules/global.md` <- `<repo>/WINDSURF.md`
+
+Windsurf-specific rules are generated in `.windsurf/rules/` with Cascade priorities.
+
+### Link all IDEs at once
+
+To set up all supported IDEs in one command:
+
+```bash
+pnpm rules:compile
+pnpm rules:link:all
+```
+
+This links/copies rules for Cursor, Claude, Codex, Antigravity, and Windsurf.
+
 ---
 
 ## Quick start
@@ -106,9 +156,11 @@ Then restart Claude Code.
    ```
 
    This generates:
-   - `.cursor/rules/**` for Cursor
-   - `CLAUDE.md` and `.claude/rules/**/*.md` for Claude Code
-   - `AGENTS.md` for Codex
+   - `.cursor/rules/**` — Cursor rules
+   - `CLAUDE.md` + `.claude/rules/**/*.md` — Claude Code rules
+   - `GEMINI.md` + `.agent/rules/**/*.md` + `.agent/workflows/**/*.md` — Antigravity rules & workflows
+   - `WINDSURF.md` + `.windsurf/rules/**/*.md` — Windsurf rules
+   - `AGENTS.md` — Codex bundle
 
 3. **Optional — validate generated outputs**:
 
@@ -137,14 +189,19 @@ Then restart Claude Code.
 
 ## Folder layout
 
-| Folder           | Purpose                                 |
-| ---------------- | --------------------------------------- |
-| `rules/`         | Source of truth for all `.mdc` rules    |
-| `.cursor/rules/` | Generated rules for Cursor              |
-| `CLAUDE.md`      | Generated bundle for Claude Code        |
-| `.claude/rules/` | Generated modular rules for Claude Code |
-| `AGENTS.md`      | Generated bundle for Codex              |
-| `codex/rules/`   | Source-controlled Codex `.rules` files  |
+| Folder/File         | Purpose                                          |
+| ------------------- | ------------------------------------------------ |
+| `rules/`            | Source of truth for all `.mdc` rules             |
+| `.cursor/rules/`    | Generated rules for Cursor                       |
+| `CLAUDE.md`         | Generated bundle for Claude Code                 |
+| `.claude/rules/`    | Generated modular rules for Claude Code          |
+| `GEMINI.md`         | Generated bundle for Antigravity (Google Gemini) |
+| `.agent/rules/`     | Generated rules for Antigravity                  |
+| `.agent/workflows/` | Generated workflows for Antigravity              |
+| `WINDSURF.md`       | Generated bundle for Windsurf                    |
+| `.windsurf/rules/`  | Generated rules for Windsurf                     |
+| `AGENTS.md`         | Generated bundle for Codex                       |
+| `codex/rules/`      | Source-controlled Codex `.rules` files           |
 
 ---
 
@@ -166,14 +223,17 @@ Rules reference other rules by path (e.g. `.cursor/rules/nextjs/route-handlers.m
 
 When working inside this repository:
 
-| Script                   | Description                            |
-| ------------------------ | -------------------------------------- |
-| `pnpm rules:compile`     | Compile rules for Cursor/Claude/Codex  |
-| `pnpm rules:check`       | Validate generated outputs are current |
-| `pnpm rules:link:codex`  | Create/update global Codex symlinks    |
-| `pnpm rules:link:claude` | Create/update global Claude symlinks   |
-| `pnpm format`            | Format all `.mdc` rules with Prettier  |
-| `pnpm format:check`      | Check that rules are formatted (CI)    |
+| Script                        | Description                                   |
+| ----------------------------- | --------------------------------------------- |
+| `pnpm rules:compile`          | Compile rules for all IDEs                    |
+| `pnpm rules:check`            | Validate generated outputs are current        |
+| `pnpm rules:link:codex`       | Create/update global Codex symlinks           |
+| `pnpm rules:link:claude`      | Create/update global Claude symlinks          |
+| `pnpm rules:link:antigravity` | Copy GEMINI.md to global Antigravity location |
+| `pnpm rules:link:windsurf`    | Copy WINDSURF.md to global Windsurf location  |
+| `pnpm rules:link:all`         | Link/copy rules for all supported IDEs        |
+| `pnpm format`                 | Format all `.mdc` rules with Prettier         |
+| `pnpm format:check`           | Check that rules are formatted (CI)           |
 
 ---
 

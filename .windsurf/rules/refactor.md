@@ -1,0 +1,22 @@
+---
+description: "Umbrella: Refactor workflow — @refactor, TypeScript refactoring"
+globs: "*.ts,*.tsx"
+alwaysApply: false
+priority: high
+---
+
+<!-- Windsurf Context: *.ts, *.tsx -->
+
+# Refactor Rules (umbrella)
+
+Use **@refactor** when refactoring a file or splitting code.
+
+This rule references:
+
+- **Refactor current file**: `.windsurf/rules/refactor/file-refactor.mdc` — one symbol per file, no inline types/helpers; run check after
+- **TypeScript refactoring**: `.windsurf/rules/typescript/refactoring-typescript.mdc` — move types to `types/`, helpers to `utils/`, no index files
+
+## Short summary
+
+- One exported symbol per file; extract types to `types/`, helpers to `utils/`.
+- Mandatory: run project check script after refactor.

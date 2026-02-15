@@ -4,6 +4,14 @@ import { ensureDir } from "../fs/ensureDir.mjs"
 import { normalizeRel } from "./normalizeRel.mjs"
 import { toClaudeRule } from "./toClaudeRule.mjs"
 
+/**
+ * Sync .claude/rules: clear target, then write each .mdc as .md using toClaudeRule.
+ *
+ * @param {string[]} sourceFiles - Full paths to source files
+ * @param {string} sourceDir - Base directory for source
+ * @param {string} claudeRulesDir - .claude/rules directory
+ * @returns {Promise<void>}
+ */
 export const syncClaudeRules = async (sourceFiles, sourceDir, claudeRulesDir) => {
   await fs.rm(claudeRulesDir, { recursive: true, force: true })
   await ensureDir(claudeRulesDir)

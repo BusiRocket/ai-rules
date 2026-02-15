@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+/**
+ * Link Antigravity (Gemini) global rules: copy GEMINI.md to ~/.gemini/GEMINI.md.
+ */
 import path from "node:path"
 import os from "node:os"
 import { copyFileToGlobal } from "./lib/link/copyFileToGlobal.mjs"

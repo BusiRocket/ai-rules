@@ -4,6 +4,14 @@ import { sha256 } from "../hash/sha256.mjs"
 import { normalizeRel } from "./normalizeRel.mjs"
 import { toClaudeRule } from "./toClaudeRule.mjs"
 
+/**
+ * Compare source .mdc with .claude/rules output (expected = toClaudeRule per file, hashed).
+ *
+ * @param {string[]} sourceFiles - Full paths to source files
+ * @param {string} sourceDir - Base directory for source
+ * @param {string} claudeRulesDir - .claude/rules directory
+ * @returns {Promise<string[]>} - List of error messages
+ */
 export const checkClaudeRules = async (sourceFiles, sourceDir, claudeRulesDir) => {
   const expectedMap = new Map()
   const mdcFiles = sourceFiles

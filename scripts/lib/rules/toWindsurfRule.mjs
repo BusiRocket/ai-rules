@@ -15,7 +15,7 @@ import { addWindsurfAnnotations } from "./windsurf/addWindsurfAnnotations.mjs"
 /**
  * Main conversion function
  * @param {object} parsed - Parsed MDC with frontmatter and content
- * @param {string} rulePath - Original rule path
+ * @param {string} _rulePath - Original rule path
  * @returns {string} - Windsurf-formatted rule
  */
 export function toWindsurfRule(parsed, _rulePath) {

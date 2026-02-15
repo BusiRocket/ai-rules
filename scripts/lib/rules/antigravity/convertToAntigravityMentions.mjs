@@ -1,7 +1,7 @@
 /**
  * Convert relative rule references to Antigravity @mentions
  * @param {string} content - Rule content
- * @param {string} currentPath - Current rule file path
+ * @param {string} _currentPath - Current rule file path
  * @returns {string} - Content with converted references
  */
 export function convertToAntigravityMentions(content, _currentPath) {

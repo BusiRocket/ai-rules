@@ -3,6 +3,12 @@ import path from "node:path"
 import { backupExistingPath } from "./backupExistingPath.mjs"
 import { ensureParentDirectory } from "./ensureParentDirectory.mjs"
 
+/**
+ * Create a symlink from source to target, backing up existing target if needed.
+ *
+ * @param {{ source: string, target: string }} link - Source and target paths
+ * @returns {Promise<{ target: string, source: string, status: string, backupPath?: string | null }>}
+ */
 export const linkOneWithBackup = async ({ source, target }) => {
   await ensureParentDirectory(target)
   await fs.access(source)

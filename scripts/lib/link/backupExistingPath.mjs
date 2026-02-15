@@ -1,6 +1,12 @@
 import { promises as fs } from "node:fs"
 import { pathExists } from "./pathExists.mjs"
 
+/**
+ * Backup an existing path: if symlink, record target; if file/dir, rename to .backup-{timestamp}.
+ *
+ * @param {string} targetPath - Path that may already exist
+ * @returns {Promise<{ exists: boolean, symlink?: boolean, current?: string, backupPath?: string }>}
+ */
 export const backupExistingPath = async (targetPath) => {
   const exists = await pathExists(targetPath)
   if (!exists) {

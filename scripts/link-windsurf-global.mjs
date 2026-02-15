@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+/**
+ * Link Windsurf global rules: copy WINDSURF.md to ~/.windsurf/rules/global.md.
+ */
 import path from "node:path"
 import os from "node:os"
 import { copyFileToGlobal } from "./lib/link/copyFileToGlobal.mjs"

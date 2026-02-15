@@ -1,3 +1,6 @@
+/**
+ * Link Codex global rules: AGENTS.md and codex/rules/default.rules to ~/.codex.
+ */
 import os from "node:os"
 import path from "node:path"
 import { runLinkScript } from "./lib/link/runLinkScript.mjs"

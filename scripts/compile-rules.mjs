@@ -1,3 +1,8 @@
+/**
+ * Compile rules: generate .cursor/rules, .claude/rules, .agent/rules, .windsurf/rules,
+ * CLAUDE.md, AGENTS.md, GEMINI.md, WINDSURF.md from rules/*.mdc.
+ * With --check: exit 1 if any output is missing or outdated.
+ */
 import { promises as fs } from "node:fs"
 import path from "node:path"
 import { listFilesRecursive } from "./lib/fs/listFilesRecursive.mjs"

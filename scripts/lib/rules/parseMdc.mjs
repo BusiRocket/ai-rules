@@ -1,3 +1,9 @@
+/**
+ * Parse MDC content: extract optional YAML frontmatter and body.
+ *
+ * @param {string} content - Raw MDC file content
+ * @returns {{ frontmatter: Record<string, string> | null, body: string }}
+ */
 export const parseMdc = (content) => {
   const trimmed = content.trimStart()
   if (!trimmed.startsWith("---")) {

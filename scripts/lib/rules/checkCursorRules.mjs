@@ -3,6 +3,14 @@ import { listFilesRecursive } from "../fs/listFilesRecursive.mjs"
 import { sha256 } from "../hash/sha256.mjs"
 import { normalizeRel } from "./normalizeRel.mjs"
 
+/**
+ * Compare source .mdc files with .cursor/rules output (by content hash).
+ *
+ * @param {string[]} sourceFiles - Full paths to source files
+ * @param {string} sourceDir - Base directory for source
+ * @param {string} cursorDir - .cursor/rules directory
+ * @returns {Promise<string[]>} - List of error messages (missing/outdated/unexpected)
+ */
 export const checkCursorRules = async (sourceFiles, sourceDir, cursorDir) => {
   const sourceMap = new Map()
 

@@ -1,3 +1,6 @@
+/**
+ * Link Claude global rules: CLAUDE.md and .claude/rules to ~/.claude.
+ */
 import os from "node:os"
 import path from "node:path"
 import { runLinkScript } from "./lib/link/runLinkScript.mjs"

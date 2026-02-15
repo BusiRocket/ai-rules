@@ -1,5 +1,11 @@
 import { parseMdc } from "./parseMdc.mjs"
 
+/**
+ * Convert MDC content to Claude rule format (paths frontmatter + body).
+ *
+ * @param {string} content - Raw MDC content
+ * @returns {string} - Claude-formatted rule (paths block if globs, else body only)
+ */
 export const toClaudeRule = (content) => {
   const { frontmatter, body } = parseMdc(content)
 
